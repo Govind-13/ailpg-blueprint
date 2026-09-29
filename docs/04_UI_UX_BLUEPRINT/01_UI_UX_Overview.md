@@ -1515,12 +1515,4 @@ Dark Mode
 
 ````
 
-### Git
 
-```bash
-git add docs/04_UI_UX_Blueprint/01_UI_UX_Overview.md
-
-git commit -m "docs(ui-ux): add UI UX overview"
-````
-
-**Next → `02_Design_System.md`**.
