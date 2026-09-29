@@ -1,0 +1,1632 @@
+# AILPG — Teacher Dashboard UI/UX Specification
+
+**Project:** AI Learning Platform Generator (AILPG)
+**Document:** Teacher Dashboard UI/UX Specification
+**Layer:** UI/UX Blueprint
+**Document ID:** AILPG-UIUX-05
+**Status:** Draft / Implementation Ready
+**Audience:** Product, UI/UX, Flutter/Web Developers, Backend Developers, QA, AI/ML Engineers
+
+---
+
+## 1. Purpose
+
+The Teacher Dashboard is the primary workspace for educators using AILPG to convert solved-problem videos into interactive learning lessons.
+
+The dashboard must support the complete teacher workflow:
+
+```text
+Teacher Login
+      ↓
+Dashboard
+      ↓
+Course
+      ↓
+Lesson
+      ↓
+Upload MP4
+      ↓
+Configure AI
+      ↓
+Process
+      ↓
+Review AI Output
+      ↓
+Edit / Approve
+      ↓
+Preview
+      ↓
+Publish
+      ↓
+Monitor Student Results
+```
+
+The teacher should not need to manually create every lesson component from scratch.
+
+AILPG should automate content generation while keeping the teacher in control of the final published lesson.
+
+---
+
+# 2. Teacher Dashboard Goals
+
+The dashboard must allow teachers to:
+
+* Create and manage courses
+* Create modules
+* Create lessons
+* Upload MP4 videos
+* Validate uploaded videos
+* Configure AI processing
+* Monitor processing status
+* Review transcripts
+* Review extracted concepts
+* Review generated questions
+* Edit questions
+* Move question checkpoints
+* Review translations
+* Edit lesson metadata
+* Preview the interactive lesson
+* Publish or unpublish lessons
+* Monitor student performance
+* View lesson analytics
+* View course analytics
+* Manage teacher settings
+* Receive processing notifications
+
+---
+
+# 3. Teacher Dashboard Architecture
+
+```text
+Teacher Application
+│
+├── Dashboard
+│
+├── Courses
+│   ├── Course List
+│   ├── Course Details
+│   ├── Modules
+│   └── Lessons
+│
+├── Content Creation
+│   ├── Upload Video
+│   ├── AI Configuration
+│   ├── Processing
+│   └── AI Review
+│
+├── Lesson Management
+│   ├── Transcript
+│   ├── Questions
+│   ├── Timeline
+│   ├── Translation
+│   ├── Metadata
+│   └── Preview
+│
+├── Publishing
+│   ├── Validation
+│   ├── Publish
+│   └── Version History
+│
+├── Analytics
+│   ├── Course Analytics
+│   ├── Lesson Analytics
+│   ├── Student Performance
+│   └── Question Analytics
+│
+└── Settings
+    ├── Profile
+    ├── Preferences
+    ├── Permissions
+    └── Notifications
+```
+
+---
+
+# 4. Desktop Layout
+
+Recommended teacher dashboard layout:
+
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ Logo       Search             Notifications     Profile     │
+├───────────────┬─────────────────────────────────────────────┤
+│               │                                             │
+│ Dashboard     │                                             │
+│ Courses       │              Main Content                   │
+│ Lessons       │                                             │
+│ Processing    │                                             │
+│ Analytics     │                                             │
+│ Notifications │                                             │
+│               │                                             │
+│ Settings      │                                             │
+│               │                                             │
+└───────────────┴─────────────────────────────────────────────┘
+```
+
+### Desktop navigation
+
+Primary navigation:
+
+1. Dashboard
+2. Courses
+3. Lessons
+4. Processing
+5. Analytics
+6. Notifications
+7. Settings
+
+---
+
+# 5. Teacher Dashboard Home
+
+The dashboard home provides a summary of the teacher's content and processing activity.
+
+## Main sections
+
+```text
+Welcome, Teacher
+
+[Create Course] [Upload Video]
+
+------------------------------------------------
+
+Courses        Lessons        Students       Drafts
+  12             86             1,248          7
+
+------------------------------------------------
+
+Recent Activity
+
+Course / Lesson / Action / Status / Time
+
+------------------------------------------------
+
+AI Processing
+
+Processing jobs
+Completed jobs
+Failed jobs
+Needs Review
+
+------------------------------------------------
+
+Recent Student Activity
+
+Lesson
+Students
+Completion
+Average Score
+```
+
+---
+
+# 6. Dashboard KPI Cards
+
+The top of the dashboard should provide summary cards.
+
+Recommended KPIs:
+
+### Courses
+
+```text
+Courses
+12
++2 this month
+```
+
+### Lessons
+
+```text
+Lessons
+86
+74 Published
+12 Draft
+```
+
+### Students
+
+```text
+Students
+1,248
+```
+
+### AI Processing
+
+```text
+AI Jobs
+8
+3 Processing
+4 Completed
+1 Needs Review
+```
+
+### Optional KPIs
+
+* Average lesson completion
+* Average student score
+* Questions answered
+* Course engagement
+* Failed processing jobs
+
+---
+
+# 7. Recent Activity
+
+The recent activity component shows important teacher actions.
+
+Example:
+
+```text
+Recent Activity
+
+✓ Lesson published
+  Algebra — Linear Equations
+  10 minutes ago
+
+✓ AI processing completed
+  Quadratic Equation Introduction
+  24 minutes ago
+
+✎ Lesson edited
+  Fractions — Example 3
+  1 hour ago
+
+⚠ Review required
+  Geometry Problem 12
+  2 hours ago
+```
+
+Each activity should be clickable.
+
+---
+
+# 8. AI Processing Summary
+
+The dashboard should expose processing activity directly.
+
+```text
+AI Processing
+
+Processing
+██████████████░░░░ 72%
+
+Completed       18
+Processing       3
+Needs Review     2
+Failed           1
+```
+
+Clicking the processing card opens:
+
+```text
+Processing Center
+```
+
+---
+
+# 9. Course Management
+
+The teacher's course management area is the central content-management workspace.
+
+```text
+Courses
+
+[+ Create Course]
+
+Search courses...
+
+Filters:
+[All] [Published] [Draft] [Archived]
+
+------------------------------------------------
+
+Course Card
+Mathematics — Grade 10
+12 Modules
+84 Lessons
+1,120 Students
+
+[Open] [Analytics] [...]
+```
+
+---
+
+# 10. Course List
+
+Each course should display:
+
+* Course title
+* Thumbnail
+* Description
+* Subject
+* Grade/level
+* Number of modules
+* Number of lessons
+* Student count
+* Published/draft status
+* Last updated time
+
+Example:
+
+```text
+┌──────────────────────────────────────────────┐
+│ [Thumbnail]                                  │
+│                                              │
+│ Mathematics — Grade 10                       │
+│ Algebra and Equations                        │
+│                                              │
+│ 8 Modules · 64 Lessons · 540 Students       │
+│                                              │
+│ Status: Published                            │
+│                                              │
+│ [Open Course]                                │
+└──────────────────────────────────────────────┘
+```
+
+---
+
+# 11. Course Details
+
+Course details provide the complete course structure.
+
+```text
+Course: Mathematics — Grade 10
+
+[Overview] [Content] [Students] [Analytics] [Settings]
+
+------------------------------------------------
+
+Course Description
+
+------------------------------------------------
+
+Modules
+
+Module 1 — Algebra
+  Lesson 1
+  Lesson 2
+  Lesson 3
+
+Module 2 — Equations
+  Lesson 1
+  Lesson 2
+
+[+ Add Module]
+```
+
+---
+
+# 12. Course Builder Entry
+
+The course builder should provide an obvious action:
+
+```text
++ Add Content
+```
+
+Options:
+
+```text
+Add Content
+
+○ Create Lesson
+○ Upload MP4
+○ Add Existing Lesson
+○ Create Quiz
+○ Add Resource
+```
+
+For the core AILPG workflow:
+
+```text
+Upload MP4
+```
+
+should be the primary content creation option.
+
+---
+
+# 13. Module Management
+
+Teachers should be able to:
+
+* Create module
+* Rename module
+* Reorder modules
+* Delete module
+* Duplicate module
+* Add lessons
+* Move lessons
+* Collapse/expand module
+
+Example:
+
+```text
+Module 01
+Introduction to Algebra
+
+☰ Lesson 01 — Variables
+☰ Lesson 02 — Expressions
+☰ Lesson 03 — Equations
+
+[+ Add Lesson]
+```
+
+Drag-and-drop ordering should be supported on desktop.
+
+---
+
+# 14. Lesson Management
+
+Lesson cards should expose:
+
+* Lesson title
+* Thumbnail
+* Duration
+* Question count
+* Language
+* Processing status
+* Publication status
+* Last updated
+* Student completion
+
+Example:
+
+```text
+Linear Equation — Example 01
+
+Duration: 08:42
+Questions: 6
+Language: English
+
+AI Status: Reviewed
+Publication: Published
+
+[Edit] [Preview] [Analytics] [...]
+```
+
+---
+
+# 15. Create Lesson
+
+The teacher can create a lesson using:
+
+```text
+Create Lesson
+
+Lesson Title
+[________________________]
+
+Description
+[________________________]
+
+Course
+[Mathematics — Grade 10]
+
+Module
+[Algebra]
+
+Source
+○ Upload MP4
+○ Existing Video
+○ Manual Lesson
+
+[Continue]
+```
+
+For AILPG, selecting **Upload MP4** starts the automated pipeline.
+
+---
+
+# 16. MP4 Upload Entry
+
+The upload page should clearly explain the workflow.
+
+```text
+Create Interactive Lesson
+
+Step 1
+Upload Video
+
+Step 2
+AI Analysis
+
+Step 3
+Review
+
+Step 4
+Preview
+
+Step 5
+Publish
+```
+
+Main upload area:
+
+```text
+┌──────────────────────────────────────────┐
+│                                          │
+│           Drag & Drop MP4                │
+│                                          │
+│              or                          │
+│                                          │
+│           [Choose Video]                 │
+│                                          │
+│ MP4 recommended                          │
+│ Maximum supported size: configurable     │
+│                                          │
+└──────────────────────────────────────────┘
+```
+
+---
+
+# 17. Video Upload Validation
+
+Immediately validate:
+
+* File type
+* File size
+* Video duration
+* Resolution
+* Audio presence
+* Video codec
+* Corrupted file
+* Duplicate upload
+* Storage availability
+
+Example:
+
+```text
+Video Validation
+
+✓ MP4 format
+✓ File readable
+✓ Audio detected
+✓ Duration valid
+✓ Resolution supported
+
+Ready for processing.
+```
+
+---
+
+# 18. Upload Progress
+
+The upload screen should show real progress.
+
+```text
+Uploading video...
+
+██████████████████░░ 86%
+
+1.8 GB / 2.1 GB
+
+Estimated time remaining: 42 seconds
+```
+
+Additional actions:
+
+```text
+[Cancel Upload]
+```
+
+The teacher should not lose the upload accidentally.
+
+---
+
+# 19. Upload Error States
+
+Example:
+
+```text
+Upload Failed
+
+The connection was interrupted.
+
+Your upload can be resumed.
+
+[Resume Upload] [Retry] [Cancel]
+```
+
+Other errors:
+
+```text
+Unsupported Format
+File Too Large
+Video Corrupted
+Audio Not Detected
+Network Error
+Storage Error
+```
+
+Errors must explain what the teacher can do next.
+
+---
+
+# 20. AI Configuration
+
+After upload, the teacher configures AI processing.
+
+```text
+AI Lesson Configuration
+
+Video Language
+[English ▼]
+
+Target Languages
+☑ English
+☐ Tamil
+☐ Hindi
+☐ Malayalam
+
+Generate Transcript
+☑
+
+Extract Concepts
+☑
+
+Generate Questions
+☑
+
+Generate Translations
+☑
+
+Question Difficulty
+[Medium ▼]
+
+Questions per 10 minutes
+[4]
+
+Enable Automatic Checkpoints
+☑
+
+[Start AI Processing]
+```
+
+---
+
+# 21. Question Configuration
+
+Recommended options:
+
+### Question frequency
+
+```text
+Low
+Medium
+High
+Custom
+```
+
+### Difficulty
+
+```text
+Easy
+Medium
+Hard
+Mixed
+```
+
+### Question types
+
+```text
+☑ Multiple Choice
+☑ Numeric Answer
+☑ True / False
+☑ Short Answer
+☑ Ordering
+☑ Fill in the Blank
+```
+
+The teacher should be able to disable unsupported question types.
+
+---
+
+# 22. AI Processing Start Confirmation
+
+Before starting, show a summary.
+
+```text
+Ready to Process
+
+Video:
+Linear Equation Example.mp4
+
+Duration:
+08:42
+
+Language:
+English
+
+Generate:
+✓ Transcript
+✓ Concepts
+✓ Questions
+✓ Translation
+
+Estimated processing:
+Several minutes depending on video length and workload.
+
+[Start Processing]
+```
+
+---
+
+# 23. AI Processing Dashboard
+
+Once started, the teacher should see a live status page.
+
+```text
+AI Processing
+
+Linear Equation Example
+
+Overall Progress
+████████████░░░░░ 68%
+
+Pipeline
+
+✓ Upload
+✓ Audio Extraction
+✓ Speech-to-Text
+✓ Video Segmentation
+● Concept Extraction
+○ Question Generation
+○ Translation
+○ Lesson Packaging
+○ Validation
+```
+
+---
+
+# 24. Processing Pipeline Visualization
+
+AILPG should represent processing as stages.
+
+```text
+MP4
+ ↓
+Validation
+ ↓
+Audio Extraction
+ ↓
+Speech Recognition
+ ↓
+Transcript
+ ↓
+Concept Extraction
+ ↓
+Segment Detection
+ ↓
+Question Generation
+ ↓
+Translation
+ ↓
+Interactive Lesson
+ ↓
+Validation
+ ↓
+Teacher Review
+```
+
+Each stage should have:
+
+* Status
+* Start time
+* Completion time
+* Progress
+* Error information
+
+---
+
+# 25. Processing Statuses
+
+Use consistent status states:
+
+```text
+Queued
+Processing
+Completed
+Needs Review
+Failed
+Cancelled
+```
+
+Recommended UI:
+
+```text
+● Processing
+✓ Completed
+! Needs Review
+× Failed
+○ Queued
+```
+
+---
+
+# 26. Processing Job Detail
+
+A teacher can open a specific processing job.
+
+```text
+Job #AILPG-10283
+
+Lesson:
+Quadratic Equation Example
+
+Started:
+10:24 AM
+
+Status:
+Needs Review
+
+Stages
+
+✓ Transcript
+✓ Segmentation
+✓ Question Generation
+✓ Translation
+⚠ Confidence Review
+
+[Open AI Review]
+```
+
+---
+
+# 27. AI Review Workspace
+
+This is one of the most important screens in AILPG.
+
+Recommended layout:
+
+```text
+┌───────────────────────┬────────────────────────────┐
+│ Video / Timeline      │ AI Content Review          │
+│                       │                            │
+│ Video                 │ Transcript                 │
+│                       │ Questions                  │
+│ Timeline markers      │ Translation                │
+│                       │ Confidence / Issues        │
+└───────────────────────┴────────────────────────────┘
+```
+
+The teacher should be able to watch the source video while reviewing generated content.
+
+---
+
+# 28. Review Workspace Header
+
+```text
+Linear Equation — Example 01
+
+Status: Needs Review
+
+[Save] [Preview] [Publish]
+
+Tabs:
+Transcript | Concepts | Questions | Translation | Metadata
+```
+
+Autosave status:
+
+```text
+✓ Saved 20 seconds ago
+```
+
+---
+
+# 29. Video Review Panel
+
+The video panel should provide:
+
+* Play/pause
+* Seek
+* Playback speed
+* Volume
+* Fullscreen
+* Quality
+* Captions
+* Current timestamp
+* Timeline markers
+
+Example:
+
+```text
+00:03:42 / 00:08:42
+
+───────●───────────────
+       ▲
+     Question
+```
+
+---
+
+# 30. Transcript Editor
+
+Transcript should be synchronized with video.
+
+```text
+Transcript
+
+00:00
+Today we are solving...
+
+00:18
+First, we identify the variable...
+
+00:42
+Now move this term to the other side...
+
+[Edit]
+```
+
+Selecting a transcript segment should move the video to the corresponding timestamp.
+
+---
+
+# 31. Transcript Editing
+
+Teacher capabilities:
+
+* Edit text
+* Split segment
+* Merge segments
+* Adjust timestamps
+* Delete segment
+* Restore AI text
+* Search transcript
+
+Example:
+
+```text
+Transcript Segment
+
+Start: 01:24
+End:   01:39
+
+Text:
+[____________________________]
+
+[Save Segment]
+```
+
+---
+
+# 32. AI Confidence
+
+AI-generated content should display confidence where useful.
+
+Example:
+
+```text
+Transcript Confidence
+High
+
+Question Confidence
+Medium
+
+Translation Confidence
+High
+```
+
+Low-confidence items should be easier to identify.
+
+```text
+⚠ Review Recommended
+```
+
+The confidence indicator should guide review rather than automatically determine publication.
+
+---
+
+# 33. Concept / Segment Review
+
+AI may divide the video into conceptual segments.
+
+Example:
+
+```text
+Concepts
+
+01 — Identify the variable
+00:00–01:05
+
+02 — Rearrange equation
+01:06–03:20
+
+03 — Calculate result
+03:21–05:12
+
+04 — Verify answer
+05:13–06:40
+```
+
+Teacher actions:
+
+* Rename concept
+* Merge concepts
+* Split concept
+* Change timestamp
+* Delete concept
+
+---
+
+# 34. Question Generation Review
+
+Generated questions should appear in a dedicated panel.
+
+```text
+Generated Questions
+
+Q1  01:12
+Multiple Choice
+✓ Approved
+
+Q2  03:18
+Numeric Answer
+⚠ Needs Review
+
+Q3  05:40
+Multiple Choice
+✓ Approved
+```
+
+---
+
+# 35. Question Editor
+
+Question editor:
+
+```text
+Question
+
+Timestamp
+[03:18]
+
+Question Type
+[Numeric Answer ▼]
+
+Question
+[What is the value of x?]
+
+Answer
+[5]
+
+Explanation
+[Move the constant... ]
+
+Difficulty
+[Medium]
+
+Points
+[1]
+
+[Save]
+```
+
+---
+
+# 36. Question Options
+
+For multiple-choice questions:
+
+```text
+Question:
+What is x?
+
+○ 2
+○ 3
+○ 5
+○ 8
+
+Correct Answer:
+● 5
+```
+
+The teacher should be able to:
+
+* Add option
+* Remove option
+* Reorder options
+* Mark correct answer
+* Add explanation
+
+---
+
+# 37. Question Regeneration
+
+If a generated question is unsuitable:
+
+```text
+Question needs improvement
+
+[Regenerate Question]
+```
+
+Optional regeneration settings:
+
+```text
+Difficulty:
+[Medium]
+
+Question Type:
+[Multiple Choice]
+
+Focus:
+[Current Concept]
+
+[Generate]
+```
+
+The previous version should not be silently destroyed.
+
+---
+
+# 38. Question Timeline
+
+Questions should appear as timeline markers.
+
+```text
+Video Timeline
+
+0:00      1:00      2:00      3:00      4:00
+|---------|---------|---------|---------|
+
+          Q1                  Q2
+                    Q3
+```
+
+Selecting a marker opens the question editor.
+
+---
+
+# 39. Checkpoint Placement
+
+Teacher can manually move a checkpoint.
+
+```text
+Question 2
+
+Current position:
+03:18
+
+Move checkpoint:
+[03:24]
+
+[Save Position]
+```
+
+The teacher should receive a warning if the checkpoint overlaps another checkpoint unnecessarily.
+
+---
+
+# 40. Question Preview
+
+The teacher can preview the exact student experience.
+
+```text
+Student Preview
+
+┌──────────────────────────────┐
+│                              │
+│          Video               │
+│                              │
+└──────────────────────────────┘
+
+Question
+
+What is the value of x?
+
+○ 2
+○ 3
+○ 5
+○ 8
+
+[Submit]
+```
+
+Preview should use the actual generated lesson data.
+
+---
+
+# 41. Translation Review
+
+Translation workspace:
+
+```text
+Language
+
+English
+Tamil
+Hindi
+Malayalam
+
+Source:
+What is the value of x?
+
+Tamil:
+x இன் மதிப்பு என்ன?
+
+[Edit Translation]
+```
+
+Teacher can:
+
+* Review translation
+* Edit translation
+* Approve translation
+* Regenerate translation
+* Switch languages
+
+---
+
+# 42. Translation Status
+
+Each language can have a status:
+
+```text
+English     ✓ Complete
+Tamil       ✓ Reviewed
+Hindi       ⚠ Needs Review
+Malayalam   ● Processing
+```
+
+---
+
+# 43. Lesson Metadata
+
+Teacher can configure:
+
+```text
+Lesson Title
+Description
+Subject
+Grade
+Topic
+Difficulty
+Estimated Duration
+Tags
+Thumbnail
+Learning Objectives
+Prerequisites
+```
+
+Example:
+
+```text
+Learning Objectives
+
+After completing this lesson, students will be able to:
+
+✓ Identify variables
+✓ Rearrange equations
+✓ Solve linear equations
+✓ Verify solutions
+```
+
+---
+
+# 44. Lesson Preview
+
+The preview should reproduce the student experience.
+
+```text
+Lesson Preview
+
+[Video]
+
+Question appears at 01:12
+
+Student answers
+
+Feedback appears
+
+Video resumes
+```
+
+Preview controls:
+
+```text
+[Desktop Preview]
+[Tablet Preview]
+[Mobile Preview]
+```
+
+---
+
+# 45. Publish Validation
+
+Before publishing, AILPG should validate the lesson.
+
+Example:
+
+```text
+Publish Validation
+
+✓ Video available
+✓ Transcript available
+✓ Lesson metadata complete
+✓ Questions valid
+✓ Correct answers configured
+✓ Checkpoint timestamps valid
+✓ Translation valid
+✓ Student access configured
+
+Ready to publish.
+```
+
+If something is incomplete:
+
+```text
+⚠ 2 issues require attention
+
+1. Question 4 has no correct answer
+2. Hindi translation is incomplete
+
+[Review Issues]
+```
+
+---
+
+# 46. Publish Flow
+
+Publishing confirmation:
+
+```text
+Publish Lesson
+
+Lesson:
+Linear Equation Example
+
+Audience:
+Grade 10 Mathematics
+
+Languages:
+English, Tamil
+
+Questions:
+6
+
+Visibility:
+Course Students
+
+[Cancel] [Publish Lesson]
+```
+
+After publishing:
+
+```text
+✓ Lesson Published
+
+Students can now access this lesson.
+```
+
+---
+
+# 47. Draft and Autosave
+
+Teachers should never lose edits accidentally.
+
+Display:
+
+```text
+Saving...
+```
+
+then:
+
+```text
+✓ Saved
+```
+
+If offline:
+
+```text
+Offline
+
+Changes are stored locally and will sync when connected.
+```
+
+If synchronization conflicts occur:
+
+```text
+Sync Conflict
+
+A newer version exists.
+
+[View Changes]
+[Keep Mine]
+[Use Latest]
+```
+
+---
+
+# 48. Version History
+
+Every major lesson update should create a version.
+
+```text
+Version History
+
+v5 — Published
+Today 10:40 AM
+
+v4 — Teacher Edited
+Today 10:25 AM
+
+v3 — AI Generated
+Today 10:18 AM
+
+v2 — Transcript Updated
+Today 10:15 AM
+```
+
+Teacher should be able to inspect previous versions.
+
+---
+
+# 49. Student Access Settings
+
+Teacher can configure:
+
+```text
+Access
+
+○ Entire Course
+○ Selected Students
+○ Organization
+○ Private
+
+Enrollment:
+[Allowed]
+
+Completion Requirement:
+[80%]
+
+Question Attempts:
+[2]
+
+Show Correct Answer:
+[After Submission]
+
+Allow Replay:
+[Yes]
+```
+
+---
+
+# 50. Course Publishing
+
+A course should have independent publishing states.
+
+```text
+Draft
+ ↓
+Review
+ ↓
+Published
+ ↓
+Unpublished
+ ↓
+Archived
+```
+
+Course publication validation should check:
+
+* Course metadata
+* Modules
+* Lessons
+* Student access
+* Required content
+* Published lesson availability
+
+---
+
+# 51. Teacher Analytics
+
+Teacher analytics should answer:
+
+* Are students watching lessons?
+* Are students completing lessons?
+* Which questions are difficult?
+* Which lessons have high dropout?
+* Which courses have strong engagement?
+
+---
+
+# 52. Course Analytics
+
+Example:
+
+```text
+Course Analytics
+
+Students              540
+Completion             72%
+Average Score          78%
+Average Watch Time     31 min
+
+Most Completed Lesson
+Linear Equations
+
+Most Difficult Lesson
+Quadratic Equations
+```
+
+The UI should present the underlying measurements without turning them into unsupported qualitative judgments.
+
+---
+
+# 53. Lesson Analytics
+
+```text
+Lesson Analytics
+
+Views                 824
+Unique Students       412
+Completions           301
+Completion Rate       73%
+
+Average Score         81%
+
+Average Watch Time    06:42
+
+Questions Answered    2,840
+Correct Answers       2,140
+```
+
+---
+
+# 54. Student Performance
+
+Teacher can inspect aggregated student performance.
+
+```text
+Student Performance
+
+Student
+Completion
+Score
+Questions
+Last Active
+```
+
+Example:
+
+```text
+Student A
+92%
+88%
+24 / 26
+Today
+```
+
+Student-level data should only be available according to teacher permissions and organization privacy rules.
+
+---
+
+# 55. Question Analytics
+
+Each question should have performance information.
+
+```text
+Question 04
+
+Correct: 42%
+Incorrect: 58%
+
+Attempts: 312
+
+Average Attempts:
+1.7
+```
+
+This helps teachers identify questions that may need review.
+
+The UI should distinguish student difficulty from a teacher's interpretation of question quality.
+
+---
+
+# 56. Analytics Filters
+
+Recommended filters
