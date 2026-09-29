@@ -1,1830 +1,1977 @@
 # AILPG — Admin Dashboard UI/UX Blueprint
 
-**Project:** MP4 → Interactive Learning Platform Generator
-**Short Name:** AILPG
-**Document:** Admin Dashboard UI/UX Blueprint
-**Path:** `04_UI_UX_Blueprint/06_Admin_Dashboard.md`
-**Version:** 1.0.0
-**Status:** Draft / GitHub Ready
+**Document:** `docs/04_UI_UX_BLUEPRINT/06_Admin_Dashboard.md`
+**Project:** MP4 → Interactive Learning Platform Generator (AILPG)
+**Document Type:** UI/UX Blueprint
+**Status:** Draft / Implementation Reference
+**Version:** 1.0
 
 ---
 
-# 1. Overview
+## 1. Purpose
 
-The AILPG Admin Dashboard is the central control interface for platform administrators.
+The Admin Dashboard is the central management interface for the AILPG platform.
 
-It provides administrators with visibility and control over:
+It allows administrators and authorized staff to manage:
 
 * Users
-* Teachers
 * Students
-* Uploaded videos
-* AI processing jobs
-* Interactive lessons
-* Questions
+* Instructors
+* Courses
+* Videos
+* MP4 processing jobs
+* AI-generated lessons
+* Interactive questions
 * Translations
 * Subscriptions
-* Payments
-* System configuration
-* AI providers
-* Storage
+* Quality/access rules
 * Analytics
-* Security
+* AI review workflows
+* System configuration
+* Notifications
+* Reports
 * Audit logs
-* Platform health
 
-The dashboard should provide an operational view of the entire AILPG platform.
+The dashboard must provide a clear view of the complete pipeline:
+
+```text
+MP4 Upload
+    ↓
+Video Processing
+    ↓
+AI Analysis
+    ↓
+Transcript / OCR
+    ↓
+Question Generation
+    ↓
+Interactive Lesson Generation
+    ↓
+Translation
+    ↓
+AI Review
+    ↓
+Admin Approval
+    ↓
+Publish
+    ↓
+Student Learning
+    ↓
+Analytics
+```
 
 ---
 
-# 2. Admin Dashboard Objective
+# 2. Dashboard Goals
 
-The primary objective is:
+The dashboard should enable an administrator to answer the following questions quickly:
 
-> Provide administrators with a secure, centralized interface for monitoring, managing, configuring and troubleshooting the AILPG platform.
-
-The dashboard should allow an administrator to understand the state of the system without accessing databases or server terminals directly.
+1. How many users are currently registered?
+2. How many students are active?
+3. How many courses are published?
+4. How many videos are processing?
+5. Are any AI processing jobs failing?
+6. How many lessons are waiting for review?
+7. Which lessons are approved?
+8. Which lessons are published?
+9. How many questions were generated?
+10. Which languages are being used?
+11. What is the student engagement level?
+12. Are there subscription or payment issues?
+13. Is the video-processing infrastructure healthy?
+14. Are there failed AI jobs?
+15. What content requires administrator attention?
 
 ---
 
-# 3. Design Principles
+# 3. Target Users
 
-The Admin Dashboard should follow these principles:
+| Role            | Dashboard Access              |
+| --------------- | ----------------------------- |
+| Super Admin     | Full access                   |
+| Admin           | Most management functions     |
+| Content Manager | Courses, videos, lessons      |
+| AI Reviewer     | AI-generated content review   |
+| Instructor      | Assigned courses/content      |
+| Support Staff   | Users, subscriptions, support |
+| Analyst         | Analytics and reports         |
 
-1. **Clarity**
-2. **Consistency**
-3. **Security**
-4. **Fast navigation**
-5. **Action visibility**
-6. **Error visibility**
-7. **Data transparency**
-8. **Responsive design**
-9. **Accessibility**
-10. **Auditability**
-
-Administrative actions should be clearly distinguishable from informational data.
+Access must be controlled through **Role-Based Access Control (RBAC)**.
 
 ---
 
 # 4. Dashboard Layout
 
-Recommended desktop layout:
+The desktop dashboard should use a three-part structure:
 
 ```text
-┌─────────────────────────────────────────────────────────────────────┐
-│ AILPG ADMIN        Search...             Notifications   Admin ▼   │
-├───────────────┬─────────────────────────────────────────────────────┤
-│               │                                                     │
-│ Dashboard     │                  PAGE CONTENT                      │
-│               │                                                     │
-│ Users         │                                                     │
-│ Teachers      │                                                     │
-│ Students      │                                                     │
-│ Videos        │                                                     │
-│ AI Jobs       │                                                     │
-│ Lessons       │                                                     │
-│ Questions     │                                                     │
-│ Translations  │                                                     │
-│ Subscriptions │                                                     │
-│ Analytics     │                                                     │
-│               │                                                     │
-│ System        │                                                     │
-│ Settings      │                                                     │
-│ Audit Logs    │                                                     │
-│               │                                                     │
-│ ───────────   │                                                     │
-│ Help          │                                                     │
-│ Logout        │                                                     │
-└───────────────┴─────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│ Logo        Search             Notifications    Admin Profile │
+├───────────────┬──────────────────────────────────────────────┤
+│               │                                              │
+│ Dashboard     │                Main Content                  │
+│ Users         │                                              │
+│ Courses       │                                              │
+│ Videos        │                                              │
+│ AI Processing │                                              │
+│ Lessons       │                                              │
+│ Questions     │                                              │
+│ Translations  │                                              │
+│ Reviews       │                                              │
+│ Subscriptions │                                              │
+│ Analytics     │                                              │
+│ Reports       │                                              │
+│ Settings      │                                              │
+│ Audit Logs    │                                              │
+│               │                                              │
+└───────────────┴──────────────────────────────────────────────┘
 ```
 
 ---
 
-# 5. Main Navigation
+# 5. Global Navigation
 
-The sidebar should contain the following sections.
+## 5.1 Primary Navigation
 
 ```text
 Dashboard
-
-Content
-├── Videos
-├── Lessons
-├── Questions
-└── Translations
-
 Users
-├── All Users
-├── Students
-├── Teachers
-└── Administrators
-
-AI & Processing
-├── Processing Jobs
-├── AI Providers
-├── AI Usage
-└── Failed Jobs
-
-Commerce
-├── Plans
-├── Subscriptions
-├── Payments
-└── Coupons
-
+Courses
+Videos
+AI Processing
+Lessons
+Questions
+Translations
+AI Review
+Subscriptions
 Analytics
-├── Platform Analytics
-├── Learning Analytics
-├── Content Analytics
-└── AI Analytics
-
-System
-├── System Health
-├── Storage
-├── Notifications
-├── Settings
-└── Audit Logs
+Reports
+Notifications
+Settings
+Audit Logs
 ```
 
 ---
 
-# 6. Admin Dashboard Home
+# 6. Header
 
-The dashboard homepage should provide an operational summary.
-
-## 6.1 KPI Cards
-
-Recommended cards:
+The dashboard header contains:
 
 ```text
-┌────────────────┐ ┌────────────────┐ ┌────────────────┐
-│ Total Users    │ │ Total Lessons  │ │ Total Videos   │
-│ 12,840         │ │ 1,248          │ │ 1,530          │
-│ +8.4%          │ │ +12.2%         │ │ +10.1%         │
-└────────────────┘ └────────────────┘ └────────────────┘
+[AILPG Logo]
 
-┌────────────────┐ ┌────────────────┐ ┌────────────────┐
-│ Active Users   │ │ AI Jobs        │ │ Failed Jobs    │
-│ 4,823          │ │ 238            │ │ 7              │
-└────────────────┘ └────────────────┘ └────────────────┘
+[Global Search........................]
+
+[Help] [Notifications] [Admin Avatar]
 ```
 
-Actual values must come from backend APIs.
+## Header Functions
+
+### Global Search
+
+Search across:
+
+* Users
+* Courses
+* Videos
+* Lessons
+* Questions
+* Processing jobs
+
+Example:
+
+```text
+Search:
+"Algebra"
+"user@example.com"
+"video_1023"
+"Quadratic Equation"
+```
+
+### Notifications
+
+Display:
+
+* Failed processing jobs
+* AI review requests
+* System warnings
+* New users
+* Subscription events
+* Storage warnings
+
+### Profile
+
+Options:
+
+```text
+My Profile
+Account Settings
+Security
+Activity
+Logout
+```
 
 ---
 
-# 7. Processing Overview
+# 7. Dashboard Home
 
-The dashboard should show current AI processing activity.
+The Dashboard Home is the first screen after administrator login.
 
-Example:
+## 7.1 KPI Cards
+
+Display high-level platform metrics.
+
+```text
+┌────────────────┐
+│ Total Users    │
+│ 24,850         │
+│ ↑ 8.4%         │
+└────────────────┘
+
+┌────────────────┐
+│ Courses        │
+│ 328            │
+│ ↑ 12           │
+└────────────────┘
+
+┌────────────────┐
+│ Videos         │
+│ 4,281          │
+│ ↑ 142          │
+└────────────────┘
+
+┌────────────────┐
+│ Active Jobs    │
+│ 17             │
+│ ● Processing   │
+└────────────────┘
+```
+
+Other KPI cards:
+
+* Published Lessons
+* Pending Reviews
+* Generated Questions
+* Translation Jobs
+* Active Subscriptions
+* Failed Jobs
+
+---
+
+# 8. Processing Status Widget
+
+The administrator must be able to monitor video-processing activity.
 
 ```text
 AI PROCESSING
 
-Queued        24
-Processing    18
-Completed     192
-Failed         7
-
-Overall Processing Health
-██████████████████░░  91%
+Processing       17
+Completed       942
+Failed            8
+Queued           31
 ```
 
-Clicking the section should navigate to:
+Progress example:
 
-`/admin/ai/jobs`
+```text
+Quadratic_Equation.mp4
+
+Upload             ✓
+Video Analysis     ✓
+OCR                ✓
+Transcript         ✓
+Question Generation ████████░░ 80%
+Lesson Generation  Pending
+Translation        Pending
+```
 
 ---
 
-# 8. Recent Activity
+# 9. Recent Activity
 
-Show recent administrative and platform events.
+Display the latest administrative and system activity.
 
 Example:
 
 ```text
-Recent Activity
+10:42 PM
+Admin approved "Algebra Basics"
 
-● Teacher uploaded "Quadratic Equations.mp4"
-  2 minutes ago
+10:38 PM
+AI completed processing "Linear Equations.mp4"
 
-● Lesson generated successfully
-  5 minutes ago
+10:35 PM
+New instructor account created
 
-● Translation completed: Tamil
-  8 minutes ago
+10:31 PM
+Translation completed: English → Tamil
 
-● New teacher registered
-  12 minutes ago
-
-● AI processing failed
-  15 minutes ago
+10:25 PM
+Lesson submitted for AI review
 ```
 
-Each activity should contain:
+Each activity item should contain:
 
-* Event type
-* User/system actor
-* Object
 * Timestamp
+* User/system
+* Action
+* Resource
 * Status
-* Link to details
 
 ---
 
-# 9. System Health Widget
+# 10. System Health
 
-The dashboard should show the health of major services.
+The dashboard should show infrastructure health.
 
 ```text
 SYSTEM HEALTH
 
 API Server             ● Operational
 Database               ● Operational
-Object Storage         ● Operational
-AI Processing Queue    ● Operational
-Video Processing       ● Operational
+Video Processor        ● Operational
+AI Processing          ● Operational
+Storage                ● Operational
 Translation Service    ● Operational
-Email Service          ● Operational
-Payment Service        ● Operational
+Queue                  ● Operational
 ```
 
-Status states:
+Possible states:
 
 ```text
 Operational
-Degraded
 Warning
-Unavailable
+Degraded
+Offline
 Unknown
 ```
 
 ---
 
-# 10. User Management
+# 11. User Management
 
-## Route
-
-```text
-/admin/users
-```
-
-The user-management page should support:
-
-* Search
-* Filtering
-* Sorting
-* Pagination
-* User status
-* Role filtering
-* Date filtering
-* Bulk actions
-
-Example:
+## Navigation
 
 ```text
 Users
-
-[ Search users... ] [Role ▼] [Status ▼] [Date ▼]
-
-┌──────────┬──────────────┬──────────┬──────────┬────────────┐
-│ Name     │ Email        │ Role     │ Status   │ Created    │
-├──────────┼──────────────┼──────────┼──────────┼────────────┤
-│ User A   │ user@...     │ Student  │ Active   │ 2026-09-01 │
-│ User B   │ teacher@...  │ Teacher  │ Active   │ 2026-08-20 │
-└──────────┴──────────────┴──────────┴──────────┴────────────┘
+├── All Users
+├── Students
+├── Instructors
+├── Administrators
+├── Pending Users
+└── Suspended Users
 ```
+
+## User Table
+
+| Column       | Description              |
+| ------------ | ------------------------ |
+| User         | Name + avatar            |
+| Email        | Email address            |
+| Role         | Student/Admin/Instructor |
+| Status       | Active/Suspended         |
+| Subscription | Free/Paid                |
+| Courses      | Enrolled courses         |
+| Last Active  | Latest activity          |
+| Created      | Registration date        |
+| Actions      | View/Edit                |
 
 ---
 
-# 11. User Detail Page
+# 12. User Detail Page
 
-## Route
+The administrator can view:
 
 ```text
-/admin/users/:userId
+User Profile
+────────────
+
+Name
+Email
+Role
+Account Status
+Subscription
+Registration Date
+Last Login
 ```
 
-Sections:
+Tabs:
 
 ```text
-Profile
-Activity
-Lessons
+Overview
+Courses
+Learning Progress
+Quiz Results
 Subscriptions
-Payments
-Sessions
+Activity
 Security
-Audit History
 ```
 
-The administrator should be able to view account information according to their permission level.
+Administrators should be able to perform authorized actions such as:
+
+* Edit user
+* Change role
+* Suspend account
+* Restore account
+* Reset access
+* View learning activity
+* Manage subscription status
+
+Sensitive operations require confirmation.
 
 ---
 
-# 12. User Actions
+# 13. Course Management
 
-Possible actions:
+Navigation:
+
+```text
+Courses
+├── All Courses
+├── Draft
+├── Review
+├── Published
+└── Archived
+```
+
+Course cards should display:
+
+```text
+Course Thumbnail
+
+Algebra Fundamentals
+
+Instructor: John Doe
+Videos: 24
+Lessons: 24
+Questions: 86
+Students: 1,240
+
+Status: Published
+```
+
+Actions:
 
 ```text
 View
 Edit
-Suspend
-Activate
-Reset access
-Change role
-View activity
-View subscriptions
-View audit history
-```
-
-Sensitive actions should require confirmation.
-
-Example:
-
-```text
-Suspend User?
-
-This user will no longer be able to access
-the student platform.
-
-[Cancel] [Confirm Suspension]
-```
-
----
-
-# 13. Teacher Management
-
-## Route
-
-```text
-/admin/teachers
-```
-
-Teacher-specific information:
-
-* Name
-* Email
-* Account status
-* Lessons created
-* Videos uploaded
-* Students
-* Subscription
-* Content status
-* Last activity
-
-Example:
-
-```text
-Teacher Performance
-
-Teacher             Lessons   Videos   Students
-------------------------------------------------
-Teacher A             24        31       540
-Teacher B             18        22       310
-```
-
-The dashboard should display factual activity metrics without assigning subjective performance scores unless such scoring is explicitly defined as a product feature.
-
----
-
-# 14. Student Management
-
-## Route
-
-```text
-/admin/students
-```
-
-Possible information:
-
-* Account status
-* Lessons started
-* Lessons completed
-* Questions attempted
-* Subscription
-* Last activity
-* Usage
-
----
-
-# 15. Video Management
-
-## Route
-
-```text
-/admin/videos
-```
-
-The video-management interface should provide:
-
-```text
-Videos
-
-[Search...] [Status ▼] [Teacher ▼] [Date ▼]
-
-┌──────────────────┬───────────┬──────────┬────────────┐
-│ Video            │ Teacher   │ Status   │ Uploaded   │
-├──────────────────┼───────────┼──────────┼────────────┤
-│ Algebra.mp4      │ Teacher A │ Ready    │ Sep 20     │
-│ Fractions.mp4    │ Teacher B │ Process  │ Sep 21     │
-│ Geometry.mp4     │ Teacher A │ Failed   │ Sep 22     │
-└──────────────────┴───────────┴──────────┴────────────┘
-```
-
----
-
-# 16. Video Detail
-
-## Route
-
-```text
-/admin/videos/:videoId
-```
-
-Display:
-
-* Video metadata
-* Thumbnail
-* Duration
-* File size
-* Resolution
-* Codec
-* Owner
-* Upload date
-* Processing status
-* Generated lesson
-* Transcript
-* Processing history
-
----
-
-# 17. Video Processing Status
-
-Use a clear state machine.
-
-```text
-UPLOADED
-   ↓
-VALIDATING
-   ↓
-QUEUED
-   ↓
-PROCESSING
-   ↓
-ANALYZING
-   ↓
-TRANSCRIBING
-   ↓
-MATH_EXTRACTION
-   ↓
-QUESTION_GENERATION
-   ↓
-TRANSLATION
-   ↓
-LESSON_GENERATION
-   ↓
-QUALITY_CHECK
-   ↓
-READY
-```
-
-Failure path:
-
-```text
-Any Stage
-   ↓
-FAILED
-   ↓
-Retry
-```
-
----
-
-# 18. AI Jobs Dashboard
-
-## Route
-
-```text
-/admin/ai/jobs
-```
-
-This is one of the most important operational pages.
-
-Columns:
-
-```text
-Job ID
-Video
-Job Type
-Provider
-Status
-Started
-Duration
-Tokens
-Cost
-Attempts
-Created
-```
-
-Example:
-
-```text
-JOB-10293
-Algebra.mp4
-Transcription
-Whisper
-Completed
-02:31
-$0.08
-1 attempt
-```
-
----
-
-# 19. AI Job Detail
-
-## Route
-
-```text
-/admin/ai/jobs/:jobId
-```
-
-Display:
-
-```text
-Job Information
-
-Job ID:
-JOB-10293
-
-Status:
-Completed
-
-Provider:
-AI Provider
-
-Started:
-10:21:03
-
-Completed:
-10:23:34
-
-Duration:
-2m 31s
-```
-
-Processing logs:
-
-```text
-10:21:03 Job created
-10:21:04 Input validated
-10:21:12 Audio extracted
-10:21:30 Transcription started
-10:23:10 Transcription completed
-10:23:34 Job completed
-```
-
----
-
-# 20. Failed Jobs
-
-## Route
-
-```text
-/admin/ai/failed
-```
-
-Display:
-
-* Job ID
-* Error type
-* Error message
-* Failed stage
-* Retry count
-* Last attempt
-* Retry action
-
-Example:
-
-```text
-┌───────────┬──────────────┬────────────┬─────────┐
-│ Job       │ Stage        │ Error      │ Action  │
-├───────────┼──────────────┼────────────┼─────────┤
-│ JOB-123   │ Translation  │ Timeout    │ Retry   │
-│ JOB-124   │ OCR          │ Invalid    │ Retry   │
-└───────────┴──────────────┴────────────┴─────────┘
-```
-
----
-
-# 21. Lesson Management
-
-## Route
-
-```text
-/admin/lessons
-```
-
-Lesson states:
-
-```text
-Draft
-Processing
-Review
-Published
-Archived
-Failed
-```
-
-Filters:
-
-* Teacher
-* Subject
-* Language
-* Status
-* Created date
-* Updated date
-
----
-
-# 22. Lesson Detail
-
-## Route
-
-```text
-/admin/lessons/:lessonId
-```
-
-Sections:
-
-```text
-Overview
-Video
-Transcript
-Lesson Structure
-Questions
-Translations
-Versions
-Students
-Analytics
-Audit Log
-```
-
----
-
-# 23. Question Management
-
-## Route
-
-```text
-/admin/questions
-```
-
-Administrators should be able to inspect generated questions.
-
-Information:
-
-* Question
-* Question type
-* Lesson
-* Timestamp
-* Difficulty
-* Correct answer
-* Explanation
-* Generation status
-* Validation status
-
-Example:
-
-```text
-Question
-
-At 02:34
-
-What is the value of x?
-
-Type:
-Multiple Choice
-
-Validation:
-✓ Passed
-```
-
----
-
-# 24. Translation Management
-
-## Route
-
-```text
-/admin/translations
-```
-
-Display:
-
-```text
-Lesson
-Source Language
-Target Language
-Status
-Provider
-Created
-Updated
-```
-
-Statuses:
-
-```text
-Pending
-Processing
-Completed
-Failed
-Needs Review
-```
-
----
-
-# 25. Subscription Management
-
-## Route
-
-```text
-/admin/subscriptions
-```
-
-Display:
-
-* Plan
-* User
-* Status
-* Start date
-* Renewal date
-* Expiry date
-* Billing provider
-* Payment status
-
----
-
-# 26. Plan Management
-
-## Route
-
-```text
-/admin/plans
-```
-
-Administrators should be able to configure product entitlements.
-
-Example:
-
-```text
-Plan: Premium
-
-Video Quality
-✓ 1080p
-✓ 720p
-✓ 480p
-
-Features
-✓ Interactive lessons
-✓ Advanced analytics
-✓ Multiple languages
-```
-
-Plan configuration should be stored in the backend.
-
-Frontend applications should not be the authoritative source for entitlement decisions.
-
----
-
-# 27. Payment Management
-
-## Route
-
-```text
-/admin/payments
-```
-
-Information:
-
-* Transaction ID
-* User
-* Plan
-* Amount
-* Currency
-* Payment status
-* Provider
-* Date
-* Refund status
-
-Sensitive financial information should be appropriately protected and access-controlled.
-
----
-
-# 28. Platform Analytics
-
-## Route
-
-```text
-/admin/analytics
-```
-
-Dashboard sections:
-
-```text
-User Growth
-Lesson Growth
-Video Processing
-Learning Engagement
-Question Accuracy
-AI Usage
-Storage Usage
-Subscription Activity
-```
-
-Example:
-
-```text
-Monthly Platform Activity
-
-Users
-│
-│          ●
-│       ●
-│    ●
-│ ●
-└──────────────────
- Jan Feb Mar Apr
-```
-
-Charts should support:
-
-* Date range
-* Daily
-* Weekly
-* Monthly
-* Export
-
----
-
-# 29. Learning Analytics
-
-Important metrics:
-
-```text
-Lessons Started
-Lessons Completed
-Average Completion
-Questions Attempted
-Questions Correct
-Question Retry Rate
-Average Watch Percentage
-Average Learning Session
-```
-
-These should be presented as measurements rather than unexplained quality scores.
-
----
-
-# 30. AI Analytics
-
-Display:
-
-```text
-AI Usage
-
-Total Jobs
-Successful Jobs
-Failed Jobs
-Average Processing Time
-Token Usage
-Estimated Cost
-Provider Usage
-```
-
-Example:
-
-```text
-AI Provider Usage
-
-Provider A       62%
-Provider B       24%
-Provider C       14%
-```
-
----
-
-# 31. Storage Dashboard
-
-## Route
-
-```text
-/admin/system/storage
-```
-
-Display:
-
-```text
-Storage
-
-Original Videos      2.4 TB
-Processed Videos     1.1 TB
-Audio Files          310 GB
-Thumbnails            24 GB
-Generated Lessons     18 GB
-Total                3.85 TB
-```
-
-Include:
-
-* Storage utilization
-* Largest files
-* File counts
-* Retention status
-* Cleanup candidates
-
-Deletion operations should require appropriate authorization.
-
----
-
-# 32. System Health
-
-## Route
-
-```text
-/admin/system/health
-```
-
-Monitor:
-
-```text
-API
-Database
-Cache
-Queue
-Object Storage
-AI Providers
-Translation
-Email
-Payments
-CDN
-```
-
-Each service should expose a health state.
-
----
-
-# 33. Notifications
-
-## Route
-
-```text
-/admin/notifications
-```
-
-Administrators can monitor system-generated notifications.
-
-Examples:
-
-* Processing completed
-* Processing failed
-* Payment failed
-* Subscription expiring
-* System warning
-* Security event
-
----
-
-# 34. System Settings
-
-## Route
-
-```text
-/admin/settings
-```
-
-Categories:
-
-```text
-General
-Authentication
-Video
-AI
-Translation
-Storage
-Email
-Payments
-Subscriptions
-Security
-Notifications
-```
-
-Dangerous settings should require additional confirmation.
-
----
-
-# 35. AI Provider Configuration
-
-## Route
-
-```text
-/admin/settings/ai
-```
-
-Possible configuration:
-
-```text
-AI Provider
-API Status
-Model
-Timeout
-Retry Limit
-Token Limit
-Usage Limit
-Fallback Provider
-```
-
-API keys should never be displayed as plaintext.
-
-Use:
-
-```text
-••••••••••••••••
-```
-
-with controlled rotation functionality.
-
----
-
-# 36. Audit Logs
-
-## Route
-
-```text
-/admin/audit-logs
-```
-
-Every important administrative action should be recorded.
-
-Example:
-
-```text
-Timestamp
-Actor
-Action
-Resource
-Resource ID
-IP / Session Reference
-Result
-```
-
-Example:
-
-```text
-2026-09-29 10:32
-Admin A
-Updated Plan
-Premium
-PLAN-002
-Success
-```
-
-Audit logs should be append-oriented and protected from unauthorized modification.
-
----
-
-# 37. Role-Based Access Control
-
-The admin system should support granular permissions.
-
-Example roles:
-
-```text
-Super Admin
-Admin
-Content Admin
-Support Admin
-Finance Admin
-Analytics Admin
-```
-
-Example permission model:
-
-```text
-users.read
-users.update
-users.suspend
-
-videos.read
-videos.delete
-
-lessons.read
-lessons.publish
-lessons.archive
-
-ai.jobs.read
-ai.jobs.retry
-
-subscriptions.read
-subscriptions.manage
-
-analytics.read
-
-settings.read
-settings.update
-
-audit.read
-```
-
----
-
-# 38. Permission Matrix
-
-| Capability         | Super Admin | Admin | Content Admin | Support | Finance |
-| ------------------ | ----------: | ----: | ------------: | ------: | ------: |
-| View users         |           ✓ |     ✓ |             ✓ |       ✓ | Limited |
-| Edit users         |           ✓ |     ✓ |             — | Limited |       — |
-| Suspend users      |           ✓ |     ✓ |             — | Limited |       — |
-| Manage videos      |           ✓ |     ✓ |             ✓ |       — |       — |
-| Manage lessons     |           ✓ |     ✓ |             ✓ |       — |       — |
-| Publish lessons    |           ✓ |     ✓ |             ✓ |       — |       — |
-| Retry AI jobs      |           ✓ |     ✓ |             ✓ |       — |       — |
-| View analytics     |           ✓ |     ✓ |             ✓ | Limited |       ✓ |
-| Manage plans       |           ✓ |     ✓ |             — |       — |       ✓ |
-| Payment management |           ✓ |     ✓ |             — |       — |       ✓ |
-| System settings    |           ✓ |     ✓ |             — |       — |       — |
-| Audit logs         |           ✓ |     ✓ |       Limited | Limited | Limited |
-
-The final permission model should be configurable rather than permanently hard-coded.
-
----
-
-# 39. Global Search
-
-The dashboard should provide global search.
-
-Searchable objects:
-
-```text
-Users
-Teachers
-Students
-Videos
-Lessons
-Questions
-AI Jobs
-Transactions
-Subscriptions
-```
-
-Example:
-
-```text
-Search: "Algebra"
-
-Results
-
-Lessons
-  Algebra Basics
-
-Videos
-  Algebra.mp4
-
-AI Jobs
-  JOB-10321
-```
-
----
-
-# 40. Filters
-
-Tables should support reusable filters.
-
-Common filters:
-
-```text
-Status
-Role
-Language
-Teacher
-Date
-Processing State
-Subscription
-Plan
-Provider
-```
-
-Filters should be combinable.
-
-Example:
-
-```text
-Status = Failed
-+
-Job Type = Translation
-+
-Language = Tamil
-+
-Date = Last 7 Days
-```
-
----
-
-# 41. Bulk Operations
-
-Where safe and appropriate:
-
-```text
-Select multiple
-       ↓
-Bulk Action
-       ↓
-Confirmation
-       ↓
-Execute
-       ↓
-Result Summary
-```
-
-Example:
-
-```text
-Selected: 8 failed jobs
-
-[Retry Selected]
-
-8 jobs selected.
-Retry processing?
-
-[Cancel] [Retry]
-```
-
-Bulk destructive operations should have stronger confirmation requirements.
-
----
-
-# 42. Confirmation Dialogs
-
-Administrative actions should clearly explain consequences.
-
-Example:
-
-```text
-Archive Lesson?
-
-Lesson:
-Quadratic Equations
-
-Archived lessons will no longer be
-available for normal student discovery.
-
-[Cancel] [Archive Lesson]
-```
-
----
-
-# 43. Error Handling
-
-Errors should be understandable.
-
-Bad:
-
-```text
-Error 500
-```
-
-Better:
-
-```text
-Unable to retry this processing job.
-
-The AI processing service did not respond.
-
-Job ID: JOB-12345
-
-[Try Again] [View Logs]
-```
-
-Do not expose internal secrets, stack traces or sensitive infrastructure information to administrators unless their permission level explicitly allows diagnostic details.
-
----
-
-# 44. Empty States
-
-Every data table should have a useful empty state.
-
-Example:
-
-```text
-No failed jobs
-
-All recent AI processing jobs completed
-successfully.
-
-[View All Jobs]
-```
-
----
-
-# 45. Loading States
-
-Use skeleton loading for large dashboard components.
-
-Example:
-
-```text
-┌─────────────────────┐
-│ ███████████         │
-│ ███████             │
-│ ███████████████     │
-└─────────────────────┘
-```
-
-Avoid blank screens while data is loading.
-
----
-
-# 46. Responsive Design
-
-Desktop is the primary administrative environment.
-
-The dashboard should also support:
-
-* Tablet
-* Mobile
-
-On mobile:
-
-```text
-┌─────────────────────┐
-│ ☰  AILPG ADMIN   🔔 │
-├─────────────────────┤
-│                     │
-│ Total Users         │
-│ 12,840              │
-│                     │
-│ AI Jobs             │
-│ 238                 │
-│                     │
-│ Failed              │
-│ 7                   │
-│                     │
-└─────────────────────┘
-```
-
-Complex tables should become horizontally scrollable or convert into card layouts.
-
----
-
-# 47. Accessibility
-
-The dashboard should follow accessibility best practices.
-
-Requirements:
-
-* Keyboard navigation
-* Visible focus state
-* Screen-reader labels
-* Sufficient contrast
-* Semantic HTML
-* Accessible form labels
-* Accessible dialogs
-* Error announcements
-* Reduced-motion support
-
----
-
-# 48. Admin Session Security
-
-Administrative sessions should have stronger security controls.
-
-Recommended:
-
-```text
-Login
- ↓
-Authentication
- ↓
-MFA
- ↓
-Admin Session
- ↓
-Permission Check
- ↓
-Action
- ↓
-Audit Log
-```
-
-Session controls may include:
-
-* Session timeout
-* Device/session management
-* MFA
-* Login monitoring
-* Suspicious-session detection
-* Re-authentication for sensitive actions
-
----
-
-# 49. Navigation Routes
-
-Recommended route structure:
-
-```text
-/admin
-/admin/users
-/admin/users/:userId
-
-/admin/teachers
-/admin/students
-
-/admin/videos
-/admin/videos/:videoId
-
-/admin/lessons
-/admin/lessons/:lessonId
-
-/admin/questions
-/admin/translations
-
-/admin/ai/jobs
-/admin/ai/jobs/:jobId
-/admin/ai/failed
-
-/admin/plans
-/admin/subscriptions
-/admin/payments
-
-/admin/analytics
-/admin/analytics/learning
-/admin/analytics/ai
-
-/admin/system/health
-/admin/system/storage
-/admin/system/notifications
-
-/admin/settings
-/admin/settings/ai
-/admin/settings/security
-
-/admin/audit-logs
-```
-
----
-
-# 50. Component Architecture
-
-Recommended reusable components:
-
-```text
-AdminLayout
-├── Sidebar
-├── Topbar
-├── Breadcrumbs
-└── NotificationCenter
-
-Dashboard
-├── KPI Card
-├── Chart Card
-├── Activity Feed
-├── Health Status
-└── Processing Summary
-
-Data Management
-├── DataTable
-├── SearchBar
-├── FilterPanel
-├── Pagination
-├── StatusBadge
-├── ActionMenu
-└── ConfirmationDialog
-
-Forms
-├── FormField
-├── Select
-├── Toggle
-├── DatePicker
-└── FileInput
-```
-
----
-
-# 51. Design System
-
-The dashboard should use a consistent design system.
-
-Define:
-
-```text
-Typography
-Spacing
-Grid
-Buttons
-Inputs
-Tables
-Cards
-Badges
-Dialogs
-Alerts
-Charts
-Icons
-Navigation
-```
-
-Status badges should consistently represent:
-
-```text
-Success
-Warning
-Error
-Processing
-Pending
-Inactive
-```
-
----
-
-# 52. Admin UX Flow
-
-Typical operational flow:
-
-```text
-Admin Login
-     ↓
-Dashboard
-     ↓
-Notice Failed Job
-     ↓
-Open AI Jobs
-     ↓
-Open Job Details
-     ↓
-Review Error
-     ↓
-Retry
-     ↓
-Monitor Processing
-     ↓
-Verify Completion
-     ↓
-Audit Event Recorded
-```
-
----
-
-# 53. Content Review Flow
-
-```text
-AI Generated Lesson
-        ↓
-Admin/Teacher Review
-        ↓
-Inspect Transcript
-        ↓
-Inspect Math Steps
-        ↓
-Inspect Questions
-        ↓
-Inspect Translation
-        ↓
-Preview Lesson
-        ↓
-Approve
-        ↓
+Duplicate
+Archive
 Publish
 ```
 
 ---
 
-# 54. Admin Dashboard API Dependencies
+# 14. Course Builder Integration
 
-The frontend should consume backend APIs rather than directly accessing the database.
+The Admin Dashboard must connect directly to the Course Builder.
 
 Example:
+
+```text
+Course
+ ↓
+Modules
+ ↓
+Lessons
+ ↓
+Videos
+ ↓
+Interactive Questions
+ ↓
+Translations
+ ↓
+Publishing
+```
+
+The course builder should allow administrators to reorder:
+
+* Modules
+* Lessons
+* Videos
+* Questions
+* Activities
+
+---
+
+# 15. Video Management
+
+Video management is a core AILPG function.
+
+## Video Table
+
+| Field      | Example            |
+| ---------- | ------------------ |
+| Video      | Quadratic Equation |
+| File       | quadratic.mp4      |
+| Duration   | 08:42              |
+| Resolution | 1080p              |
+| Size       | 125 MB             |
+| Processing | Completed          |
+| AI Status  | Reviewed           |
+| Lesson     | Generated          |
+| Language   | English            |
+| Uploaded   | 29 Sep 2026        |
+
+---
+
+# 16. Video Detail
+
+The Video Detail screen should display:
+
+```text
+┌────────────────────────────────────────┐
+│ Video Preview                          │
+│                                        │
+│             ▶ VIDEO                    │
+│                                        │
+└────────────────────────────────────────┘
+
+Video Information
+
+Filename
+Duration
+Resolution
+File Size
+Original Language
+Upload Date
+Processing Status
+```
+
+Tabs:
+
+```text
+Overview
+Transcript
+OCR
+AI Analysis
+Questions
+Lesson
+Translations
+Processing Logs
+Versions
+```
+
+---
+
+# 17. AI Processing Dashboard
+
+This screen provides detailed visibility into the automated pipeline.
+
+```text
+PROCESSING JOB #A10293
+
+Video:
+quadratic_equation.mp4
+
+Status:
+Processing
+
+Pipeline:
+
+[✓] Upload Validation
+[✓] Video Extraction
+[✓] Audio Extraction
+[✓] Speech Recognition
+[✓] OCR
+[✓] Content Analysis
+[✓] Topic Detection
+[✓] Question Generation
+[●] Lesson Generation
+[ ] Translation
+[ ] AI Review
+[ ] Publishing
+```
+
+---
+
+# 18. Processing Job Detail
+
+Every processing job should have:
+
+```text
+Job ID
+Video ID
+User ID
+Started At
+Completed At
+Processing Duration
+Current Stage
+Progress
+Status
+Error
+Retry Count
+Worker ID
+```
+
+Statuses:
+
+```text
+Queued
+Processing
+Completed
+Failed
+Cancelled
+Retrying
+```
+
+---
+
+# 19. Failed Processing Jobs
+
+A dedicated failed-jobs view should allow administrators to investigate problems.
+
+Example:
+
+```text
+FAILED JOB
+
+Video:
+Geometry Problem.mp4
+
+Stage:
+OCR
+
+Error:
+OCR service timeout
+
+Retry Count:
+2
+
+Actions:
+
+[Retry]
+[View Logs]
+[Cancel]
+```
+
+The system should preserve error logs for troubleshooting.
+
+---
+
+# 20. Lesson Management
+
+Navigation:
+
+```text
+Lessons
+├── All Lessons
+├── Draft
+├── AI Generated
+├── Review
+├── Approved
+├── Published
+└── Archived
+```
+
+Lesson status lifecycle:
+
+```text
+Draft
+ ↓
+AI Generated
+ ↓
+AI Review
+ ↓
+Admin Review
+ ↓
+Approved
+ ↓
+Published
+ ↓
+Archived
+```
+
+---
+
+# 21. Lesson Preview
+
+The administrator must be able to preview the actual student experience.
+
+Preview should include:
+
+```text
+Video
+↓
+Interactive Question
+↓
+Student Answer
+↓
+Feedback
+↓
+Continue Video
+```
+
+Controls:
+
+```text
+Play
+Pause
+Seek
+Volume
+Fullscreen
+Quality
+Language
+Zoom
+```
+
+---
+
+# 22. Interactive Question Management
+
+Questions generated by AI should be visible and editable.
+
+Question example:
+
+```text
+Question #12
+
+At what value of x does the equation
+2x + 4 = 10 become true?
+
+○ 2
+○ 3
+○ 4
+○ 5
+```
+
+Metadata:
+
+```text
+Question Type: MCQ
+Difficulty: Easy
+Timestamp: 04:32
+Topic: Linear Equation
+Correct Answer: 3
+AI Confidence: 94%
+```
+
+Actions:
+
+```text
+Edit
+Approve
+Reject
+Regenerate
+Delete
+Preview
+```
+
+---
+
+# 23. AI Review Dashboard
+
+The AI Review Dashboard helps reviewers validate generated lessons.
+
+## Review Queue
+
+```text
+Pending Review: 42
+
+High Confidence      28
+Medium Confidence     9
+Low Confidence        5
+```
+
+Each item should display:
+
+```text
+Lesson
+AI Confidence
+Detected Topic
+Question Count
+Translation Status
+Potential Issues
+```
+
+---
+
+# 24. AI Confidence
+
+AI confidence should be treated as a review signal, not as proof of correctness.
+
+Example:
+
+```text
+AI Confidence
+
+Content Extraction      97%
+Topic Detection          92%
+Question Generation      88%
+Translation              95%
+```
+
+Low-confidence items should receive additional human review.
+
+---
+
+# 25. Translation Management
+
+Administrators can manage generated translations.
+
+Example:
+
+```text
+Original:
+English
+
+Available:
+
+✓ English
+✓ Tamil
+✓ Hindi
+✓ Malayalam
+○ Telugu
+○ Kannada
+```
+
+Translation states:
+
+```text
+Pending
+Processing
+Completed
+Needs Review
+Approved
+Failed
+```
+
+---
+
+# 26. Subscription Management
+
+The dashboard should provide subscription information.
+
+Example:
+
+```text
+Subscription Plans
+
+Free
+Student
+Premium
+Institution
+```
+
+Plan attributes may include:
+
+```text
+Video Quality
+Storage
+Course Access
+AI Features
+Translation Access
+Analytics
+Download Permissions
+```
+
+The exact commercial rules should be configurable rather than hard-coded into the UI.
+
+---
+
+# 27. Video Quality Management
+
+Because AILPG supports different quality levels, administrators should be able to configure available resolutions.
+
+Example:
+
+```text
+Video Quality
+
+360p   ✓
+480p   ✓
+720p   ✓
+1080p  ✓
+```
+
+Access rules may be associated with subscription plans.
+
+The UI should clearly distinguish:
+
+```text
+Available
+Restricted
+Processing
+Unavailable
+```
+
+---
+
+# 28. Analytics Dashboard
+
+Analytics should provide both platform-level and content-level insights.
+
+## KPI
+
+```text
+Total Learners
+Active Learners
+Lessons Started
+Lessons Completed
+Questions Answered
+Average Completion
+Average Score
+Watch Time
+```
+
+## Charts
+
+Recommended charts:
+
+* User growth
+* Course enrollment
+* Lesson completion
+* Video watch time
+* Question accuracy
+* Language usage
+* Subscription activity
+* AI processing volume
+
+---
+
+# 29. Learning Analytics
+
+Administrators should be able to inspect:
+
+```text
+Student
+ ↓
+Course
+ ↓
+Lesson
+ ↓
+Video
+ ↓
+Question
+ ↓
+Answer
+```
+
+Example:
+
+```text
+Lesson Completion: 74%
+
+Video Watch:
+6m 24s
+
+Questions:
+12
+
+Correct:
+10
+
+Incorrect:
+2
+
+Average Score:
+83%
+```
+
+---
+
+# 30. Reports
+
+Reports should support:
+
+```text
+User Report
+Course Report
+Video Report
+Lesson Report
+Question Report
+AI Processing Report
+Translation Report
+Subscription Report
+Learning Report
+System Report
+```
+
+Export formats:
+
+```text
+CSV
+XLSX
+PDF
+```
+
+Export permissions must follow RBAC.
+
+---
+
+# 31. Notifications
+
+Admin notifications should include:
+
+```text
+New Processing Failure
+New Review Request
+Course Published
+Translation Failed
+Storage Warning
+System Warning
+Subscription Event
+```
+
+Notification priority:
+
+```text
+Critical
+High
+Medium
+Low
+Informational
+```
+
+---
+
+# 32. Settings
+
+Settings should be divided into sections.
+
+```text
+Settings
+├── General
+├── Users
+├── Courses
+├── Video
+├── AI
+├── Translation
+├── Subscription
+├── Notifications
+├── Security
+├── Storage
+└── System
+```
+
+---
+
+# 33. AI Configuration
+
+Authorized administrators may configure:
+
+```text
+AI Provider
+Model
+Temperature
+Maximum Tokens
+Prompt Templates
+Question Generation Rules
+Translation Model
+OCR Configuration
+Speech Recognition Configuration
+```
+
+Production changes should require appropriate permissions and audit logging.
+
+---
+
+# 34. Prompt Template Management
+
+The platform should allow versioned prompt templates.
+
+Example:
+
+```text
+Question Generator Prompt
+
+Version:
+v1.4
+
+Status:
+Active
+
+Created:
+29 Sep 2026
+
+Used By:
+Question Generation Pipeline
+```
+
+Actions:
+
+```text
+View
+Edit
+Duplicate
+Activate
+Archive
+Compare Versions
+```
+
+---
+
+# 35. Audit Logs
+
+Every important administrative action should be logged.
+
+Example:
+
+```text
+ADMIN ACTION
+
+User:
+admin@example.com
+
+Action:
+Approved Lesson
+
+Resource:
+Lesson #LES1029
+
+Timestamp:
+2026-09-29 22:32:10
+
+IP:
+[Protected]
+
+Result:
+Success
+```
+
+Audit events include:
+
+* Login
+* Logout
+* User changes
+* Role changes
+* Course changes
+* Video deletion
+* Lesson approval
+* Publishing
+* AI configuration changes
+* Subscription changes
+* Security events
+
+---
+
+# 36. Confirmation Dialogs
+
+Destructive actions must require confirmation.
+
+Example:
+
+```text
+Delete Video?
+
+This action will remove the selected video
+and associated generated lesson data.
+
+[Cancel] [Delete]
+```
+
+For critical actions, require additional confirmation.
+
+---
+
+# 37. Search and Filtering
+
+Every large data table should support:
+
+```text
+Search
+Filter
+Sort
+Pagination
+Column Selection
+Date Range
+Status
+Role
+Language
+Course
+Processing State
+```
+
+Example:
+
+```text
+Status: [Failed]
+Language: [Tamil]
+Date: [Last 7 Days]
+```
+
+---
+
+# 38. Empty States
+
+Example:
+
+```text
+No processing jobs found.
+
+There are currently no jobs matching
+your selected filters.
+
+[Clear Filters]
+```
+
+Empty states should explain what happened and what the administrator can do next.
+
+---
+
+# 39. Loading States
+
+Use:
+
+* Skeleton loaders
+* Progress indicators
+* Inline loading
+* Button loading states
+
+Avoid blank screens.
+
+Example:
+
+```text
+Loading lessons...
+████████░░ 80%
+```
+
+---
+
+# 40. Error States
+
+Example:
+
+```text
+Something went wrong.
+
+We couldn't load the processing jobs.
+
+[Try Again]
+```
+
+Errors should provide useful next actions without exposing internal system details unnecessarily.
+
+---
+
+# 41. Responsive Design
+
+The dashboard must support:
+
+```text
+Desktop
+Tablet
+Mobile
+```
+
+Desktop:
+
+```text
+Sidebar + Content
+```
+
+Tablet:
+
+```text
+Collapsed Sidebar + Content
+```
+
+Mobile:
+
+```text
+Top Bar
+↓
+Navigation Drawer
+↓
+Single-column Content
+```
+
+Complex data tables should transform into cards on smaller screens where appropriate.
+
+---
+
+# 42. Accessibility
+
+The dashboard should support:
+
+* Keyboard navigation
+* Screen readers
+* Focus indicators
+* Accessible form labels
+* Sufficient contrast
+* Semantic HTML
+* ARIA where required
+* Accessible error messages
+* Accessible modal dialogs
+
+All interactive controls must have meaningful labels.
+
+---
+
+# 43. Security UX
+
+Security-sensitive screens should include:
+
+```text
+Session Timeout
+Password Change
+2FA
+Active Sessions
+Login History
+Role Permissions
+```
+
+Administrators should be warned before performing high-impact operations.
+
+---
+
+# 44. RBAC UI
+
+Permission management example:
+
+```text
+ROLE: Content Manager
+
+Users
+[ ] View
+[ ] Create
+[ ] Edit
+[ ] Delete
+
+Courses
+[x] View
+[x] Create
+[x] Edit
+[ ] Delete
+
+Videos
+[x] View
+[x] Upload
+[x] Edit
+[ ] Delete
+
+AI Configuration
+[ ] View
+[ ] Edit
+```
+
+Permissions should be explicit.
+
+---
+
+# 45. Admin Dashboard API Requirements
+
+The frontend will consume backend APIs such as:
 
 ```text
 GET    /api/admin/dashboard
 GET    /api/admin/users
 GET    /api/admin/users/:id
+PATCH  /api/admin/users/:id
+GET    /api/admin/courses
+POST   /api/admin/courses
+PATCH  /api/admin/courses/:id
 GET    /api/admin/videos
+GET    /api/admin/processing/jobs
+GET    /api/admin/processing/jobs/:id
+POST   /api/admin/processing/jobs/:id/retry
 GET    /api/admin/lessons
-GET    /api/admin/ai/jobs
-POST   /api/admin/ai/jobs/:id/retry
+PATCH  /api/admin/lessons/:id
+POST   /api/admin/lessons/:id/approve
+POST   /api/admin/lessons/:id/publish
+GET    /api/admin/questions
+GET    /api/admin/translations
+GET    /api/admin/reviews
 GET    /api/admin/analytics
-GET    /api/admin/system/health
+GET    /api/admin/reports
 GET    /api/admin/audit-logs
 ```
 
-All endpoints require authentication and authorization.
+Exact API contracts are defined separately in the API Design documentation.
 
 ---
 
-# 55. Dashboard Data Refresh
+# 46. Database Entities Used
 
-Real-time or near-real-time updates should be considered for:
-
-* AI processing
-* System health
-* Notifications
-* Job status
-
-Possible technologies:
+The Admin Dashboard will interact with entities such as:
 
 ```text
-WebSocket
-Server-Sent Events
-Polling
-```
-
-For the MVP, polling may be sufficient.
-
----
-
-# 56. Security Requirements
-
-The Admin Dashboard must never rely solely on frontend controls.
-
-For every request:
-
-```text
-Request
-  ↓
-Authentication
-  ↓
-Authorization
-  ↓
-Permission Check
-  ↓
-Validation
-  ↓
-Business Logic
-  ↓
-Audit
-  ↓
-Response
-```
-
-The backend must independently enforce permissions.
-
----
-
-# 57. Performance Requirements
-
-Dashboard goals:
-
-* Fast initial rendering
-* Paginated tables
-* Lazy-loaded analytics
-* Efficient API queries
-* Cached dashboard summaries
-* Virtualized large datasets where required
-
-Large datasets must not be loaded into the browser unnecessarily.
-
----
-
-# 58. Auditability Requirements
-
-The following actions should generate audit events:
-
-* User suspension
-* User role change
-* Lesson publication
-* Lesson archival
-* Video deletion
-* AI job retry
-* Plan modification
-* Subscription modification
-* Payment-related administrative action
-* System configuration change
-* Security configuration change
-
----
-
-# 59. MVP Admin Dashboard
-
-The first release should include:
-
-```text
-✓ Admin Login
-✓ Dashboard
-✓ User Management
-✓ Teacher Management
-✓ Student Management
-✓ Video Management
-✓ Lesson Management
-✓ AI Job Monitoring
-✓ Failed Job Retry
-✓ Question Management
-✓ Translation Status
-✓ Basic Analytics
-✓ System Health
-✓ Audit Logs
-✓ Role-Based Permissions
+users
+roles
+permissions
+courses
+course_modules
+lessons
+videos
+video_processing_jobs
+transcripts
+ocr_results
+ai_analysis
+questions
+question_options
+answers
+translations
+reviews
+subscriptions
+plans
+analytics_events
+notifications
+audit_logs
 ```
 
 ---
 
-# 60. Post-MVP Features
+# 47. Dashboard State Management
 
-Later releases may add:
+Frontend state should distinguish between:
 
 ```text
-Advanced AI cost optimization
-Advanced analytics
-Custom admin roles
-Automated alerts
-Advanced system monitoring
-Multi-tenant administration
-Advanced billing management
-Data export
-Scheduled reports
-AI provider failover
-Advanced content moderation
+Server State
+UI State
+Form State
+Authentication State
+Permission State
 ```
+
+Example:
+
+```text
+Server State:
+Courses, Users, Jobs
+
+UI State:
+Sidebar open/closed
+
+Form State:
+Course creation form
+
+Authentication:
+Current administrator
+
+Permission:
+Can publish lesson?
+```
+
+---
+
+# 48. Real-Time Updates
+
+Processing screens should support real-time progress updates where practical.
+
+Example:
+
+```text
+WebSocket / SSE
+
+Job #1023
+
+Progress:
+62%
+
+Current Stage:
+Question Generation
+```
+
+Fallback:
+
+```text
+Periodic polling
+```
+
+The UI must not depend exclusively on real-time transport.
+
+---
+
+# 49. Performance Requirements
+
+The dashboard should:
+
+* Load the initial shell quickly
+* Paginate large datasets
+* Lazy-load heavy screens
+* Avoid loading complete datasets unnecessarily
+* Cache appropriate server state
+* Use optimized charts
+* Virtualize very large tables where necessary
+
+---
+
+# 50. Design System
+
+The Admin Dashboard should use a common design system.
+
+Components:
+
+```text
+Button
+Input
+Select
+Checkbox
+Radio
+Switch
+Modal
+Drawer
+Toast
+Tooltip
+Badge
+Card
+Table
+Tabs
+Pagination
+Dropdown
+Progress Bar
+Chart
+Date Picker
+File Upload
+Video Player
+```
+
+Components should be reusable throughout AILPG.
+
+---
+
+# 51. Status Badge System
+
+Use consistent status badges.
+
+Examples:
+
+```text
+Published
+Approved
+Processing
+Pending
+Draft
+Failed
+Suspended
+Archived
+```
+
+Status must not depend only on color.
+
+Use:
+
+```text
+Icon + Text + Color
+```
+
+to improve accessibility.
+
+---
+
+# 52. Dashboard Navigation Flow
+
+```text
+Admin Login
+     ↓
+Dashboard
+     ├── Users
+     │    └── User Detail
+     │
+     ├── Courses
+     │    └── Course Builder
+     │
+     ├── Videos
+     │    └── Video Detail
+     │
+     ├── AI Processing
+     │    └── Job Detail
+     │
+     ├── Lessons
+     │    └── Lesson Preview
+     │
+     ├── Questions
+     │    └── Question Editor
+     │
+     ├── AI Review
+     │    └── Review Interface
+     │
+     ├── Translations
+     │
+     ├── Subscriptions
+     │
+     ├── Analytics
+     │
+     ├── Reports
+     │
+     └── Settings
+```
+
+---
+
+# 53. Critical User Journeys
+
+## Journey A — Review AI Lesson
+
+```text
+Dashboard
+ ↓
+AI Review
+ ↓
+Select Lesson
+ ↓
+Review Video
+ ↓
+Review Transcript
+ ↓
+Review Questions
+ ↓
+Review Translation
+ ↓
+Approve
+ ↓
+Publish
+```
+
+---
+
+## Journey B — Investigate Failed Video
+
+```text
+Dashboard
+ ↓
+AI Processing
+ ↓
+Failed Jobs
+ ↓
+Select Job
+ ↓
+View Error
+ ↓
+View Logs
+ ↓
+Retry
+ ↓
+Monitor Progress
+```
+
+---
+
+## Journey C — Publish Course
+
+```text
+Courses
+ ↓
+Select Course
+ ↓
+Course Builder
+ ↓
+Validate Content
+ ↓
+Review Lessons
+ ↓
+Check Questions
+ ↓
+Check Translation
+ ↓
+Publish
+```
+
+---
+
+# 54. Dashboard Permissions Matrix
+
+| Feature          | Super Admin | Admin | Content Manager | AI Reviewer | Analyst |
+| ---------------- | ----------: | ----: | --------------: | ----------: | ------: |
+| Dashboard        |           ✓ |     ✓ |               ✓ |           ✓ |       ✓ |
+| Users            |           ✓ |     ✓ |         Limited |           - |    View |
+| Courses          |           ✓ |     ✓ |               ✓ |        View |    View |
+| Videos           |           ✓ |     ✓ |               ✓ |        View |    View |
+| AI Processing    |           ✓ |     ✓ |            View |        View |    View |
+| AI Configuration |           ✓ |     ✓ |               - |           - |       - |
+| Questions        |           ✓ |     ✓ |               ✓ |           ✓ |    View |
+| AI Review        |           ✓ |     ✓ |         Limited |           ✓ |    View |
+| Publishing       |           ✓ |     ✓ |               ✓ |           - |       - |
+| Analytics        |           ✓ |     ✓ |            View |        View |       ✓ |
+| Reports          |           ✓ |     ✓ |            View |        View |       ✓ |
+| Settings         |           ✓ |     ✓ |               - |           - |       - |
+| Audit Logs       |           ✓ |     ✓ |         Limited |     Limited |    View |
+
+Actual permissions must be enforced by the backend, not only hidden in the frontend.
+
+---
+
+# 55. Mobile Admin Experience
+
+The mobile interface should prioritize:
+
+```text
+Dashboard
+Notifications
+Processing
+Reviews
+Users
+Courses
+```
+
+Complex administration functions should remain accessible but may use simplified layouts.
+
+Example:
+
+```text
+☰
+AILPG Admin
+
+Processing
+━━━━━━━━━━━━
+17 Active
+8 Failed
+
+Reviews
+━━━━━━━━━━━━
+42 Pending
+
+Users
+━━━━━━━━━━━━
+24,850
+```
+
+---
+
+# 56. UX Principles
+
+The dashboard should follow these principles:
+
+### 1. Clarity
+
+Administrators should understand the current state immediately.
+
+### 2. Traceability
+
+Every AI-generated artifact should be traceable back to its source video and processing job.
+
+### 3. Recoverability
+
+Failed operations should provide a clear recovery path.
+
+### 4. Safety
+
+Destructive and high-impact actions require confirmation.
+
+### 5. Consistency
+
+The same UI patterns should be used throughout the dashboard.
+
+### 6. Transparency
+
+AI-generated content should be clearly identified.
+
+### 7. Human Oversight
+
+Administrators must be able to inspect and modify AI-generated content before publication.
+
+---
+
+# 57. AI Transparency Requirements
+
+AI-generated content should display:
+
+```text
+AI Generated
+AI Reviewed
+Human Reviewed
+Approved
+Published
+```
+
+The UI should never imply that AI-generated educational content is automatically guaranteed to be correct.
+
+---
+
+# 58. Version Management
+
+Generated lessons should support version history.
+
+Example:
+
+```text
+Lesson v1
+AI Generated
+
+Lesson v2
+Reviewer Edited
+
+Lesson v3
+Translation Updated
+
+Lesson v4
+Published
+```
+
+Administrators should be able to inspect version differences.
+
+---
+
+# 59. Recommended Component Hierarchy
+
+```text
+AdminDashboard
+│
+├── AdminLayout
+│   ├── Header
+│   ├── Sidebar
+│   └── NotificationPanel
+│
+├── DashboardHome
+│   ├── KPIGrid
+│   ├── ProcessingWidget
+│   ├── ActivityFeed
+│   └── SystemHealth
+│
+├── UserManagement
+├── CourseManagement
+├── VideoManagement
+├── ProcessingManagement
+├── LessonManagement
+├── QuestionManagement
+├── TranslationManagement
+├── AIReview
+├── SubscriptionManagement
+├── Analytics
+├── Reports
+├── Notifications
+├── Settings
+└── AuditLogs
+```
+
+---
+
+# 60. Acceptance Criteria
+
+The Admin Dashboard is considered complete when:
+
+* [ ] Admin authentication works.
+* [ ] RBAC is enforced.
+* [ ] Dashboard KPIs display correctly.
+* [ ] User management works.
+* [ ] Course management works.
+* [ ] Video management works.
+* [ ] Processing jobs can be monitored.
+* [ ] Failed jobs can be investigated.
+* [ ] Failed jobs can be retried where permitted.
+* [ ] Generated lessons can be reviewed.
+* [ ] Questions can be edited.
+* [ ] AI-generated content is clearly identified.
+* [ ] Translation status is visible.
+* [ ] Lessons can be approved.
+* [ ] Authorized users can publish lessons.
+* [ ] Subscription information is available.
+* [ ] Analytics are available.
+* [ ] Reports can be generated.
+* [ ] Audit logs are recorded.
+* [ ] Notifications work.
+* [ ] Responsive layouts work.
+* [ ] Accessibility requirements are met.
+* [ ] Error and loading states are implemented.
+* [ ] Destructive actions require confirmation.
+* [ ] Version history is available.
 
 ---
 
 # 61. Definition of Done
 
-The Admin Dashboard UI/UX specification is complete when:
-
-* All primary admin workflows have defined screens.
-* Navigation routes are documented.
-* Roles and permissions are defined.
-* Loading states are defined.
-* Empty states are defined.
-* Error states are defined.
-* Confirmation flows are defined.
-* Responsive behavior is defined.
-* Accessibility requirements are documented.
-* API dependencies are identified.
-* Security requirements are defined.
-* Audit requirements are defined.
-
----
-
-# 62. Final Admin Architecture
+The Admin Dashboard UI/UX is complete when:
 
 ```text
-                         AILPG ADMIN
-                              │
-              ┌───────────────┴───────────────┐
-              │                               │
-          Dashboard                       Navigation
-              │                               │
-     ┌────────┼────────┐              ┌───────┴────────┐
-     │        │        │              │                │
-   Users    Content    AI          Commerce          System
-     │        │        │              │                │
-     │        │        │              │                │
- Students  Videos    Jobs          Plans            Health
- Teachers  Lessons   Providers     Payments          Settings
- Admins    Questions Usage         Subs              Audit
-           Translation
-              │
-              └──────────────┬────────────────
-                             │
-                       Analytics
-                             │
-                    ┌────────┴────────┐
-                    │                 │
-                Learning             AI
-                Analytics          Analytics
-```
+UI Design
+   ✓
 
----
+Component Design
+   ✓
 
-# 63. Summary
+Responsive Design
+   ✓
 
-The AILPG Admin Dashboard is the operational command center of the platform.
+Accessibility
+   ✓
 
-It connects:
+RBAC
+   ✓
 
-```text
-Users
-  +
-Content
-  +
-AI Processing
-  +
-Learning
-  +
-Commerce
-  +
+API Integration
+   ✓
+
+AI Processing Monitoring
+   ✓
+
+Content Review
+   ✓
+
+Publishing Workflow
+   ✓
+
 Analytics
-  +
-System Operations
-  +
-Security
+   ✓
+
+Audit Logging
+   ✓
+
+Error Handling
+   ✓
+
+Security UX
+   ✓
+
+Testing
+   ✓
 ```
 
-The dashboard should provide administrators with enough visibility to understand what is happening across the platform and enough controlled functionality to manage the system safely.
+---
 
-The core design principle is:
+# 62. Relationship With Other AILPG Documents
 
-> **Observe → Understand → Act → Verify → Audit**
+This document connects directly with:
 
-This principle should be maintained throughout the AILPG administrative experience.
+```text
+04_UI_UX_BLUEPRINT/
+│
+├── 01_Design_System.md
+├── 02_Information_Architecture.md
+├── 03_User_Flows.md
+├── 04_Student_Dashboard.md
+├── 05_Instructor_Dashboard.md
+├── 06_Admin_Dashboard.md       ← This document
+├── 07_Video_Player.md
+├── 08_Interactive_Question_UI.md
+├── 09_Course_Builder.md
+├── 10_Video_Upload_UI.md
+├── 11_AI_Review_UI.md
+├── 12_Analytics_UI.md
+├── 13_Responsive_Design.md
+├── 14_Accessibility.md
+└── 15_UI_UX_Appendix.md
+```
+
+---
+
+# 63. Final Architecture View
+
+The Admin Dashboard is the operational control center of AILPG:
+
+```text
+                    ┌──────────────────────┐
+                    │     ADMIN LOGIN      │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │   ADMIN DASHBOARD    │
+                    └──────────┬───────────┘
+                               │
+       ┌───────────────────────┼───────────────────────┐
+       ↓                       ↓                       ↓
+   USERS                   CONTENT                 AI PIPELINE
+       │                       │                       │
+       ↓                       ↓                       ↓
+  Students                Courses                 Processing
+  Instructors              Videos                  Analysis
+  Admins                   Lessons                 Questions
+  Roles                    Questions               Translation
+                           Reviews                 Review
+       │                       │                       │
+       └───────────────────────┼───────────────────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │     PUBLISHING       │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │ STUDENT EXPERIENCE   │
+                    └──────────┬───────────┘
+                               ↓
+                    ┌──────────────────────┐
+                    │      ANALYTICS       │
+                    └──────────────────────┘
+```
+
+**Document Status:** Ready for implementation planning.
