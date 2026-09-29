@@ -1629,4 +1629,859 @@ The UI should distinguish student difficulty from a teacher's interpretation of 
 
 # 56. Analytics Filters
 
-Recommended filters
+Recommended filters:
+
+```text
+Date Range
+Course
+Module
+Lesson
+Question
+Student Group
+Language
+```
+
+Date options:
+
+```text
+Today
+7 Days
+30 Days
+90 Days
+Custom
+```
+
+---
+
+# 57. Search
+
+Global teacher search should support:
+
+```text
+Search courses
+Search lessons
+Search students
+Search processing jobs
+Search questions
+```
+
+Example:
+
+```text
+Search: "linear"
+
+Courses
+Mathematics Grade 10
+
+Lessons
+Linear Equation Example 01
+Linear Equation Example 02
+
+Questions
+What is the value of x?
+```
+
+---
+
+# 58. Notifications
+
+Teacher notifications should include:
+
+### AI processing
+
+```text
+✓ Processing completed
+```
+
+### Review required
+
+```text
+⚠ AI generated content requires review
+```
+
+### Processing failure
+
+```text
+× Video processing failed
+```
+
+### Publishing
+
+```text
+✓ Lesson published
+```
+
+### Analytics
+
+Optional scheduled reports can be shown here.
+
+---
+
+# 59. Teacher Profile
+
+Profile page:
+
+```text
+Profile
+
+Profile Photo
+Name
+Email
+Organization
+Role
+
+[Edit Profile]
+```
+
+Additional settings:
+
+* Language
+* Time zone
+* Notification preferences
+* Theme
+* Accessibility preferences
+
+---
+
+# 60. Teacher Permissions
+
+Teacher permissions should be role-based.
+
+Possible roles:
+
+```text
+Teacher
+Content Editor
+Course Manager
+Organization Admin
+```
+
+Example permissions:
+
+| Action          | Teacher |  Editor | Admin |
+| --------------- | ------: | ------: | ----: |
+| Create Lesson   |       ✓ |       ✓ |     ✓ |
+| Upload Video    |       ✓ |       ✓ |     ✓ |
+| Edit AI Output  |       ✓ |       ✓ |     ✓ |
+| Publish Lesson  |       ✓ |       ✓ |     ✓ |
+| Delete Course   | Limited | Limited |     ✓ |
+| Manage Users    |       — |       — |     ✓ |
+| System Settings |       — |       — |     ✓ |
+
+Actual permissions should be enforced by the backend, not only hidden in the UI.
+
+---
+
+# 61. Responsive Teacher Dashboard
+
+## Desktop
+
+Use:
+
+```text
+Sidebar + Main Content
+```
+
+## Tablet
+
+Use:
+
+```text
+Collapsible Sidebar + Main Content
+```
+
+## Mobile
+
+Use:
+
+```text
+Top Bar
++
+Bottom Navigation / Drawer
+```
+
+AI review should remain usable on tablet, but complex editing may require a larger viewport.
+
+---
+
+# 62. Mobile Teacher Navigation
+
+Recommended:
+
+```text
+Home
+Courses
+Processing
+Analytics
+More
+```
+
+The mobile interface should prioritize:
+
+* Processing status
+* Review notifications
+* Course management
+* Quick lesson actions
+
+---
+
+# 63. Accessibility
+
+Teacher dashboard should follow the overall AILPG accessibility strategy.
+
+Requirements:
+
+* Keyboard navigation
+* Visible focus state
+* Screen-reader labels
+* Semantic headings
+* Accessible form labels
+* Accessible dialogs
+* Adequate touch targets
+* Reduced motion
+* Accessible charts
+* Non-color-only status indicators
+* Captions
+* Transcript accessibility
+
+---
+
+# 64. Loading States
+
+Examples:
+
+```text
+Loading courses...
+```
+
+Use skeleton layouts where possible.
+
+For AI processing:
+
+```text
+Analyzing video...
+```
+
+For analytics:
+
+```text
+Loading analytics...
+```
+
+---
+
+# 65. Empty States
+
+Example:
+
+```text
+No Courses Yet
+
+Create your first course and start building interactive lessons.
+
+[Create Course]
+```
+
+No processing jobs:
+
+```text
+No Processing Jobs
+
+Upload a video to generate your first interactive lesson.
+
+[Upload Video]
+```
+
+No analytics:
+
+```text
+Analytics will appear after students begin using your lessons.
+```
+
+---
+
+# 66. Error States
+
+Example:
+
+```text
+Something went wrong
+
+We couldn't load this lesson.
+
+[Retry]
+```
+
+For processing:
+
+```text
+AI Processing Failed
+
+The processing job stopped during question generation.
+
+[View Details]
+[Retry Processing]
+```
+
+Errors should expose technical details only when useful to the teacher.
+
+---
+
+# 67. Teacher Dashboard State Machine
+
+```text
+Course
+  │
+  ├── Draft
+  │
+  ├── Review
+  │
+  └── Published
+
+Lesson
+  │
+  ├── Draft
+  │
+  ├── Uploading
+  │
+  ├── Processing
+  │
+  ├── AI Generated
+  │
+  ├── Needs Review
+  │
+  ├── Approved
+  │
+  ├── Published
+  │
+  └── Archived
+```
+
+Processing state and publication state should be treated as separate concepts.
+
+---
+
+# 68. Teacher Workflow State Machine
+
+```text
+UPLOAD
+  ↓
+VALIDATE
+  ↓
+CONFIGURE
+  ↓
+PROCESS
+  ↓
+AI_REVIEW
+  ↓
+EDIT
+  ↓
+PREVIEW
+  ↓
+VALIDATE
+  ↓
+PUBLISH
+  ↓
+ANALYTICS
+```
+
+The teacher should be able to return to editing after preview.
+
+---
+
+# 69. Core Teacher Screen Inventory
+
+| ID  | Screen              | Priority |
+| --- | ------------------- | -------- |
+| T01 | Teacher Login       | P0       |
+| T02 | Dashboard           | P0       |
+| T03 | Course List         | P0       |
+| T04 | Course Details      | P0       |
+| T05 | Course Builder      | P0       |
+| T06 | Lesson Details      | P0       |
+| T07 | Video Upload        | P0       |
+| T08 | AI Configuration    | P0       |
+| T09 | Processing Status   | P0       |
+| T10 | AI Review Workspace | P0       |
+| T11 | Transcript Editor   | P0       |
+| T12 | Question Review     | P0       |
+| T13 | Question Editor     | P0       |
+| T14 | Translation Editor  | P1       |
+| T15 | Lesson Metadata     | P0       |
+| T16 | Lesson Preview      | P0       |
+| T17 | Publish Validation  | P0       |
+| T18 | Version History     | P1       |
+| T19 | Course Analytics    | P1       |
+| T20 | Lesson Analytics    | P1       |
+| T21 | Student Performance | P1       |
+| T22 | Settings            | P1       |
+
+---
+
+# 70. Teacher MVP Screens
+
+The first implementation should prioritize:
+
+```text
+1. Teacher Login
+2. Dashboard
+3. Course List
+4. Course Details
+5. Course Builder
+6. Video Upload
+7. AI Configuration
+8. Processing Status
+9. AI Review
+10. Transcript Editor
+11. Question Editor
+12. Timeline
+13. Lesson Preview
+14. Publish Validation
+15. Publish
+16. Basic Analytics
+```
+
+Advanced analytics and version-management features can follow after the core workflow is stable.
+
+---
+
+# 71. Teacher Analytics Events
+
+Recommended event names:
+
+```text
+teacher_dashboard_opened
+course_created
+course_opened
+module_created
+lesson_created
+
+video_upload_started
+video_upload_completed
+video_upload_failed
+
+ai_processing_started
+ai_processing_completed
+ai_processing_failed
+
+ai_review_opened
+transcript_edited
+concept_edited
+
+question_reviewed
+question_edited
+question_regenerated
+checkpoint_moved
+
+translation_edited
+lesson_previewed
+
+publish_validation_started
+publish_validation_failed
+lesson_published
+lesson_unpublished
+
+analytics_opened
+```
+
+These events can help product teams understand teacher workflow friction.
+
+---
+
+# 72. Performance Requirements
+
+Teacher dashboard targets:
+
+### Dashboard
+
+Initial usable interface:
+
+```text
+Target: fast initial rendering
+```
+
+### Course navigation
+
+Course list should support pagination or virtualization.
+
+### AI Review
+
+Video and review data should load independently where possible.
+
+### Analytics
+
+Large datasets should use server-side aggregation.
+
+### Upload
+
+Large videos should use resumable or multipart uploads where supported.
+
+---
+
+# 73. Security Requirements
+
+Teacher UI must never rely on frontend authorization alone.
+
+Backend must verify:
+
+```text
+User
+ ↓
+Organization
+ ↓
+Course ownership
+ ↓
+Lesson permissions
+ ↓
+Action permission
+```
+
+Examples:
+
+```text
+Can this teacher edit this lesson?
+Can this teacher publish this course?
+Can this teacher view this student's data?
+```
+
+All sensitive operations require server-side authorization.
+
+---
+
+# 74. Unsaved Changes Protection
+
+When leaving an editing screen:
+
+```text
+Unsaved Changes
+
+You have changes that haven't been saved.
+
+[Stay]
+[Save & Leave]
+[Leave Without Saving]
+```
+
+Autosave should reduce the frequency of this dialog.
+
+---
+
+# 75. Teacher UX Principles
+
+The teacher dashboard should follow these principles:
+
+### Automation first
+
+AI should reduce repetitive work.
+
+### Human control
+
+Teachers must be able to review and modify generated content.
+
+### Transparency
+
+Show what AI generated and what the teacher changed.
+
+### Recoverability
+
+Drafts and versions should protect teacher work.
+
+### Fast feedback
+
+Processing and saving states should always be visible.
+
+### Student-first publishing
+
+Preview should reproduce the student experience.
+
+---
+
+# 76. Central AI Review Principle
+
+AILPG should not treat AI output as automatically final.
+
+The intended workflow is:
+
+```text
+AI Generates
+      ↓
+Teacher Reviews
+      ↓
+Teacher Edits
+      ↓
+Teacher Approves
+      ↓
+Student Receives
+```
+
+This creates a controlled human-in-the-loop learning-content workflow.
+
+---
+
+# 77. Recommended AI Review Workspace
+
+The central screen should combine:
+
+```text
+┌──────────────────────────────────────────────────────┐
+│ Lesson Title                    Save   Preview Publish│
+├───────────────────────┬──────────────────────────────┤
+│                       │                              │
+│                       │ Transcript                   │
+│       VIDEO           │                              │
+│                       │ --------------------------   │
+│                       │ Question 01                  │
+│                       │ --------------------------   │
+│       TIMELINE        │ Question 02                  │
+│                       │ --------------------------   │
+│                       │ Translation                  │
+│                       │                              │
+└───────────────────────┴──────────────────────────────┘
+```
+
+This should become the core teacher editing environment of AILPG.
+
+---
+
+# 78. Definition of Done
+
+The Teacher Dashboard UI/UX specification is complete when:
+
+* [ ] Teacher navigation is defined
+* [ ] Dashboard is defined
+* [ ] Course management is defined
+* [ ] Module management is defined
+* [ ] Lesson management is defined
+* [ ] MP4 upload flow is defined
+* [ ] Upload validation is defined
+* [ ] AI configuration is defined
+* [ ] AI processing states are defined
+* [ ] AI review workspace is defined
+* [ ] Transcript editor is defined
+* [ ] Concept review is defined
+* [ ] Question review is defined
+* [ ] Question editor is defined
+* [ ] Question timeline is defined
+* [ ] Translation editor is defined
+* [ ] Lesson metadata is defined
+* [ ] Preview is defined
+* [ ] Publish validation is defined
+* [ ] Publishing flow is defined
+* [ ] Autosave is defined
+* [ ] Versioning is defined
+* [ ] Student access settings are defined
+* [ ] Analytics are defined
+* [ ] Notifications are defined
+* [ ] Permissions are defined
+* [ ] Responsive behavior is defined
+* [ ] Accessibility requirements are defined
+* [ ] Error/loading/empty states are defined
+* [ ] MVP screen inventory is defined
+* [ ] Analytics events are defined
+* [ ] Security requirements are defined
+
+---
+
+# 79. Implementation Priority
+
+## Phase 1 — Core Teacher Workflow
+
+```text
+Login
+ ↓
+Dashboard
+ ↓
+Course
+ ↓
+Lesson
+ ↓
+Upload
+ ↓
+AI Processing
+ ↓
+AI Review
+ ↓
+Question Editing
+ ↓
+Preview
+ ↓
+Publish
+```
+
+## Phase 2 — Content Quality
+
+```text
+Transcript Editing
+Concept Editing
+Translation Review
+Version History
+Advanced Checkpoints
+```
+
+## Phase 3 — Analytics
+
+```text
+Course Analytics
+Lesson Analytics
+Question Analytics
+Student Performance
+```
+
+## Phase 4 — Advanced Teacher Tools
+
+```text
+Bulk Operations
+Advanced Search
+Content Duplication
+Advanced Course Builder
+Scheduled Publishing
+Advanced Reports
+```
+
+---
+
+# 80. Relationship With Backend
+
+Every major UI state must correspond to a backend state.
+
+Example:
+
+```text
+UI:
+Processing
+
+Backend:
+processing_job.status = PROCESSING
+```
+
+```text
+UI:
+Needs Review
+
+Backend:
+lesson.review_status = NEEDS_REVIEW
+```
+
+```text
+UI:
+Published
+
+Backend:
+lesson.publication_status = PUBLISHED
+```
+
+The frontend should not invent independent business states.
+
+---
+
+# 81. Relationship With AI Pipeline
+
+Teacher Dashboard depends on the AI pipeline:
+
+```text
+Video
+ ↓
+Speech-to-Text
+ ↓
+Transcript
+ ↓
+Segmentation
+ ↓
+Concept Extraction
+ ↓
+Question Generation
+ ↓
+Translation
+ ↓
+Interactive Lesson Package
+ ↓
+Teacher Review
+```
+
+The UI must expose sufficient information for teachers to understand and correct generated content.
+
+---
+
+# 82. Final Teacher Experience
+
+The ideal teacher experience is:
+
+```text
+Upload One MP4
+      ↓
+AILPG Understands Video
+      ↓
+AILPG Creates Transcript
+      ↓
+AILPG Identifies Concepts
+      ↓
+AILPG Generates Questions
+      ↓
+AILPG Creates Checkpoints
+      ↓
+AILPG Generates Translations
+      ↓
+Teacher Reviews
+      ↓
+Teacher Edits
+      ↓
+Teacher Previews
+      ↓
+Teacher Publishes
+      ↓
+Students Learn
+      ↓
+Teacher Monitors Results
+```
+
+The dashboard is therefore not merely an administration panel. It is the **content-production and quality-control environment of AILPG**.
+
+---
+
+# 83. Next Document
+
+The next UI/UX document should define the complete administrator experience:
+
+```text
+06_Admin_Dashboard.md
+```
+
+It will cover:
+
+* Admin navigation
+* Platform overview
+* User management
+* Teacher management
+* Student management
+* Organization management
+* Course/content moderation
+* AI processing monitoring
+* System health
+* Storage monitoring
+* Subscription management
+* Audit logs
+* Security controls
+* Platform analytics
+* Configuration
+* Feature flags
+* Support tools
+* Admin permissions
+* Admin workflows
+* Admin screen inventory
+
+---
+
+## Git Commit
+
+After adding this file:
+
+```bash
+git add docs/04_UI_UX_Blueprint/05_Teacher_Dashboard.md
+git commit -m "docs(ui-ux): add teacher dashboard specification"
+```
+
+Then continue with:
+
+```text
+06_Admin_Dashboard.md
+```
